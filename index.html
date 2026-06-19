@@ -635,6 +635,52 @@
   if(!navigator.onLine) fail('dev-net','Mất kết nối');
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) fail('dev-mic','Chưa hỗ trợ');
   if(!('speechSynthesis' in window)) fail('dev-audio','Chưa hỗ trợ');
+
+  // ===== TÍNH NHÃN CEFR TỪ ĐIỂM THẬT =====
+  // Khung 6 bậc VN ↔ CEFR. Mức đạt được xét theo cấp đề (cap) và % làm đúng.
+  var CEFR=['A1','A2','B1','B2','C1','C2'];
+  var TARGET={tieuhoc:1, thcs:2, thpt:3}; // đề Tiểu học→A2, THCS→B1, THPT→B2
+  function cefrOf(pct,cap){
+    var t=TARGET[cap]; if(t==null)t=1;
+    var idx = pct>=80 ? t : (pct>=50 ? t-1 : t-2);
+    return CEFR[Math.max(0,Math.min(5,idx))];
+  }
+  function qual(pct){
+    if(pct>=85) return ['Tốt','var(--green)'];
+    if(pct>=65) return ['Khá','var(--blue)'];
+    if(pct>=40) return ['Trung bình','var(--orange)'];
+    return ['Cần cố gắng','#ef4444'];
+  }
+  function setSkill(key,pct,cap){
+    var root=document.querySelector('.s-'+key); if(!root)return;
+    var cefr=root.querySelector('.cefr'), pctEl=root.querySelector('.pct'),
+        bar=root.querySelector('.track>i'), pts=root.querySelector('.pts'),
+        lab=root.querySelector('.foot span:last-child');
+    if(pct==null){
+      if(cefr)cefr.textContent='—';
+      if(pctEl)pctEl.textContent='—';
+      if(bar)bar.style.width='0%';
+      if(pts)pts.textContent='Chưa có dữ liệu';
+      if(lab){lab.textContent='Chưa chấm'; lab.style.color='var(--muted)';}
+      return;
+    }
+    pct=Math.max(0,Math.min(100,Math.round(pct)));
+    if(cefr)cefr.textContent=cefrOf(pct,cap);
+    if(pctEl)pctEl.textContent=pct+'%';
+    if(bar)bar.style.width=pct+'%';
+    if(pts)pts.textContent=pct+'/100 điểm';
+    if(lab){var q=qual(pct); lab.textContent=q[0]; lab.style.color=q[1];}
+  }
+  function updateSkills(){
+    var s={}; try{ s=JSON.parse(localStorage.getItem('erg_stats')||'{}'); }catch(_){}
+    var u=loadUser()||{}, m={'Tiểu học':'tieuhoc','THCS':'thcs','THPT':'thpt'};
+    var cap = s.cap || (u.level&&m[u.level]) || 'tieuhoc';
+    setSkill('nghe', typeof s.nghe==='number'?s.nghe:null, cap);
+    setSkill('doc',  typeof s.doc ==='number'?s.doc :null, cap);
+    setSkill('noi',  typeof s.noi ==='number'?s.noi :null, cap); // Nói: chưa chấm tự động
+    setSkill('viet', typeof s.viet==='number'?s.viet:null, cap); // Viết: chưa chấm tự động
+  }
+  updateSkills();
 })();
 </script>
 </body>
