@@ -288,7 +288,7 @@ const App = (()=>{
     if(!('speechSynthesis' in window)){ alert('Trình duyệt không hỗ trợ giọng đọc. Hãy đọc lời thoại bằng chữ bên dưới.'); return; }
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
-    u.lang=(enVoice&&enVoice.lang)||'en-US'; u.rate=0.95; u.pitch=1.0; u.volume=1.0; if(enVoice)u.voice=enVoice;
+    u.lang=(enVoice&&enVoice.lang)||'en-US'; u.rate=0.85; u.pitch=1.0; u.volume=1.0; if(enVoice)u.voice=enVoice;
     if(btn){ const old=btn.innerHTML; btn.innerHTML='⏹ Dừng'; speaking=true;
       u.onend=()=>{btn.innerHTML=old;speaking=false;}; u.onerror=()=>{btn.innerHTML=old;speaking=false;}; }
     speechSynthesis.speak(u);
