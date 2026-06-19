@@ -115,6 +115,9 @@
         <a href="?cap=thpt" data-cap="thpt">THPT · B2</a>
       </div>
 
+      <label class="field">Chọn đề khảo sát</label>
+      <div class="levelpick" id="depick"></div>
+
       <label class="field">Họ và tên</label>
       <input type="text" id="in-name" placeholder="Ví dụ: Nguyễn Thị Hoa">
       <label class="field">Đơn vị công tác</label>
@@ -178,25 +181,36 @@ function getCap(){
   }catch(_){}
   return 'tieuhoc';
 }
+function getDe(level){
+  var p=new URLSearchParams(location.search).get('de');
+  if(p){ var i=level.des.findIndex(d=>d.id===p); if(i>=0) return i; }
+  return 0;
+}
 var CAP=getCap();
-var DATA=window.NGAN_HANG[CAP];
+var LEVEL=window.NGAN_HANG[CAP];
+var DEIDX=getDe(LEVEL);
+var DATA=LEVEL.des[DEIDX];   // đề được chọn (có .sections)
 
 /* ====================== TRẠNG THÁI ====================== */
 const App = (()=>{
   let cur=0, answers={}, writing={}, flags={}, totalMcq=0, startTime=null;
   let endTime=null, timerInt=null;
-  const TEST_MINUTES=DATA.minutes;
+  const TEST_MINUTES=LEVEL.minutes;
   const $=id=>document.getElementById(id);
   const host=()=>$('section-host');
 
   DATA.sections.forEach(s=>{ if(s.parts) s.parts.forEach(p=>{ if(p.questions) totalMcq+=p.questions.length; }); });
 
   // ---- hiển thị thông tin cấp học ----
-  $('brand').firstChild.textContent='KHẢO SÁT NĂNG LỰC TIẾNG ANH — '+DATA.label.toUpperCase()+' ';
-  $('brand-sub').textContent=DATA.bac+' · '+TEST_MINUTES+' phút · Bản luyện tập';
-  $('w-level').textContent='giáo viên '+DATA.label;
+  $('brand').firstChild.textContent='KHẢO SÁT NĂNG LỰC TIẾNG ANH — '+LEVEL.label.toUpperCase()+' ';
+  $('brand-sub').textContent=LEVEL.bac+' · '+DATA.name+' · '+TEST_MINUTES+' phút';
+  $('w-level').textContent='giáo viên '+LEVEL.label;
   $('w-min').textContent=TEST_MINUTES;
   document.querySelectorAll('#levelpick a').forEach(a=>{ if(a.getAttribute('data-cap')===CAP) a.classList.add('cur'); });
+  // danh sách đề của cấp hiện tại
+  $('depick').innerHTML=LEVEL.des.map(function(d){
+    return '<a href="?cap='+CAP+'&de='+d.id+'"'+(d.id===DATA.id?' class="cur"':'')+'>'+d.name+'</a>';
+  }).join('');
   // prefill tên từ khai báo
   try{ var u=JSON.parse(localStorage.getItem('erg_user')||sessionStorage.getItem('ksnl_user')||'null'); if(u&&u.name) $('in-name').value=u.name; }catch(_){}
 
@@ -394,8 +408,8 @@ const App = (()=>{
 
     const u=JSON.parse(localStorage.getItem('erg_user')||'{}');
     let h=`<div class="card center">
-      <h1>Kết quả khảo sát (mô phỏng) — ${DATA.label}</h1>
-      <p class="muted">${u.name||''} ${u.school?'· '+u.school:''} · ${DATA.bac}</p>
+      <h1>Kết quả khảo sát (mô phỏng) — ${LEVEL.label}</h1>
+      <p class="muted">${u.name||''} ${u.school?'· '+u.school:''} · ${LEVEL.bac} · ${DATA.name}</p>
       <div class="result-score">${correct}/${totalMcq}</div>
       <div class="muted">câu trắc nghiệm đúng (${pct}%)</div>
       <div class="bar"><span style="width:${pct}%;background:${bandColor}"></span></div>
