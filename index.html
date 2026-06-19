@@ -206,6 +206,10 @@
   .goal .gtrack>i{display:block;height:100%;border-radius:99px;background:var(--green)}
   .goal .glbl{text-align:right;font-size:12px;font-weight:800;color:var(--green);margin-top:6px}
 
+  /* ===== TOAST ===== */
+  #erg-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#22324a;color:#fff;font-weight:700;font-size:13.5px;padding:12px 20px;border-radius:12px;box-shadow:0 12px 32px rgba(20,40,80,.28);opacity:0;pointer-events:none;transition:.25s;z-index:300;max-width:90vw;text-align:center}
+  #erg-toast.show{opacity:1;transform:translate(-50%,0)}
+
   /* ===== ONBOARDING MODAL ===== */
   .ob-overlay{position:fixed;inset:0;background:rgba(20,30,55,.45);backdrop-filter:blur(3px);display:grid;place-items:center;z-index:200;padding:20px}
   .ob-overlay.hide{display:none}
@@ -439,7 +443,7 @@
             <div class="chk" id="dev-mic"><span class="st ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="nm">Micro</span><span class="v ok">Hoạt động tốt</span></div>
             <div class="chk" id="dev-net"><span class="st ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span class="nm">Kết nối mạng</span><span class="v ok">Ổn định</span></div>
             <div class="chk"><span class="st warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 16h.01"/></svg></span><span class="nm">Trình duyệt</span><span class="v warn">Nên dùng Chrome</span></div>
-            <button class="btn-ghost">Kiểm tra lại</button>
+            <button class="btn-ghost" id="btn-recheck">Kiểm tra lại</button>
           </div>
         </div>
 
@@ -528,7 +532,42 @@
   }
   function openTest(e){ if(e) e.preventDefault(); window.location.href = encodeURI(TEST_FILE)+'?cap='+capFromUI(); }
   document.getElementById('btn-start').addEventListener('click', openTest);
-  document.getElementById('nav-test').addEventListener('click', openTest);
+
+  // ---- Thông báo nhỏ (toast) ----
+  function toast(msg){
+    var t=document.getElementById('erg-toast');
+    if(!t){ t=document.createElement('div'); t.id='erg-toast'; document.body.appendChild(t); }
+    t.textContent=msg; t.className='show'; clearTimeout(t._h); t._h=setTimeout(function(){t.className='';},3400);
+  }
+
+  // ---- Kiểm tra thiết bị (chạy thật) ----
+  function setChk(id,ok,msg){ var el=document.getElementById(id); if(!el)return; var st=el.querySelector('.st'),v=el.querySelector('.v');
+    st.classList.remove('ok','warn'); st.classList.add(ok?'ok':'warn'); v.classList.remove('ok','warn'); v.classList.add(ok?'ok':'warn'); if(msg)v.textContent=msg; }
+  function checkDevices(){
+    var btn=document.getElementById('btn-recheck'); if(btn) btn.closest('.panel').scrollIntoView({behavior:'smooth',block:'center'});
+    setChk('dev-net', navigator.onLine, navigator.onLine?'Ổn định':'Mất kết nối');
+    setChk('dev-audio', ('speechSynthesis' in window), ('speechSynthesis' in window)?'Hoạt động tốt':'Chưa hỗ trợ');
+    var mic=document.getElementById('dev-mic');
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+      if(mic) mic.querySelector('.v').textContent='Đang kiểm tra…';
+      navigator.mediaDevices.getUserMedia({audio:true})
+        .then(function(s){ s.getTracks().forEach(function(t){t.stop();}); setChk('dev-mic',true,'Hoạt động tốt'); toast('✅ Đã kiểm tra thiết bị xong.'); })
+        .catch(function(){ setChk('dev-mic',false,'Chưa cấp quyền'); toast('⚠️ Micro chưa được cấp quyền.'); });
+    } else { setChk('dev-mic',false,'Chưa hỗ trợ'); toast('Trình duyệt chưa hỗ trợ micro.'); }
+  }
+  var rc=document.getElementById('btn-recheck'); if(rc) rc.addEventListener('click', checkDevices);
+
+  // ---- Điều hướng menu trái: không nút nào "chết" ----
+  document.querySelectorAll('nav a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var label=a.textContent.trim();
+      if(label==='Khảo sát NL Tiếng Anh'){ openTest(); return; }
+      if(label==='Trang chủ'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
+      if(label==='Kiểm tra thiết bị'){ checkDevices(); return; }
+      toast('Tính năng “'+label+'” đang được xây dựng — sẽ có trong bản cập nhật tới.');
+    });
+  });
 
   // tabs
   document.querySelectorAll('.tab').forEach(function(t){
