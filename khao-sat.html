@@ -52,6 +52,8 @@
   .opt.wrong{border-color:var(--bad);background:#fdeaea}
   .audio-box{background:#eef5ff;border:1px solid #c5dbf5;border-radius:14px;padding:18px;margin:12px 0;text-align:center}
   .audio-box .lbl{font-size:15px;color:#41607f;margin-bottom:10px}
+  .vsel{font-family:inherit;font-weight:700;font-size:14px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;color:#22324a;max-width:100%;cursor:pointer}
+  .vsel:focus{outline:none;border-color:var(--blue)}
   textarea{width:100%;min-height:170px;padding:15px;border:1px solid var(--line);border-radius:11px;font-size:17px;font-family:inherit;line-height:1.6;resize:vertical;font-weight:600}
   .wc{font-size:15px;color:#5c6b7a;margin-top:6px}
   .wc.ok{color:var(--ok);font-weight:800}
@@ -130,6 +132,7 @@
       <div class="note">
         <b>Trước khi bắt đầu, hãy kiểm tra:</b> 🎧 tai nghe/loa · 🎤 micro (cho phần Nói) · 🔊 âm lượng.
         Nên dùng <b>Google Chrome</b> hoặc <b>Microsoft Edge</b> để có giọng đọc tiếng Anh tốt nhất.
+        <br><b>Điện thoại Android</b> nếu giọng bị rè: vào <i>Cài đặt → Quản lý chung → Văn bản thành giọng nói</i>, chọn <b>Google Text-to-Speech</b> làm mặc định và tải gói tiếng Anh.
       </div>
       <div id="tts-warn" class="note hide" style="background:#fdeaea;border-color:#f0a3a3">
         ⚠️ Trình duyệt chưa có giọng đọc tiếng Anh. Phần Nghe vẫn hiển thị lời thoại bằng chữ để đọc theo.
@@ -140,6 +143,8 @@
         <button class="btn sec" onclick="App.testAudio()">🔊 Nghe thử giọng đọc</button>
         <a class="btn ghost" href="index.html" style="text-decoration:none">← Về Trang chủ</a>
       </div>
+      <div class="vsel-wrap" style="margin-top:14px;font-weight:700;color:#41505f;font-size:15px"></div>
+      <p class="muted" style="font-size:14px;margin-top:6px">Chọn giọng đọc rõ nhất trên thiết bị của thầy/cô rồi bấm <b>Nghe thử</b>. Mẹo: giọng có chữ <b>“Google”</b> hoặc <b>“Natural”</b> thường trong trẻo, dễ nghe nhất.</p>
     </div>
 
     <div class="card">
@@ -237,20 +242,53 @@ const App = (()=>{
   // prefill tên từ khai báo
   try{ var u=JSON.parse(localStorage.getItem('erg_user')||sessionStorage.getItem('ksnl_user')||'null'); if(u&&u.name) $('in-name').value=u.name; }catch(_){}
 
-  let enVoice=null;
-  function pickVoice(){
-    const vs=speechSynthesis.getVoices();
-    enVoice = vs.find(v=>/en-GB/i.test(v.lang)) || vs.find(v=>/en-US/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
-    if(!enVoice && $('tts-warn')) $('tts-warn').classList.remove('hide');
+  let enVoice=null, enVoices=[];
+  function scoreVoice(v){            // điểm càng cao càng trong trẻo, dễ nghe
+    var n=(v.name||'').toLowerCase(), l=(v.lang||'').toLowerCase();
+    if(!/^en/.test(l)) return -1;
+    var s=10;
+    if(/google/.test(n)) s+=40;                                              // giọng Google (rõ nhất trên Android/Chrome)
+    if(/natural|aria|jenny|guy|libby|sonia|ryan|emma|michelle|ava|andrew/.test(n)) s+=36; // giọng "Natural" của Microsoft/Edge
+    if(/samantha|karen|daniel|moira|tessa|fiona|serena|nicky|aaron/.test(n)) s+=30;        // giọng Apple
+    if(/zira|hazel|david|mark|susan|george/.test(n)) s+=14;                   // giọng Microsoft thường
+    if(/en-us/.test(l)) s+=8; else if(/en-gb/.test(l)) s+=5;
+    if(v.localService===false) s+=6;                                         // giọng online thường mượt hơn
+    return s;
   }
-  if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=pickVoice; setTimeout(pickVoice,300); }
+  function pickVoice(){
+    var vs=speechSynthesis.getVoices()||[];
+    enVoices = vs.filter(function(v){return /^en/i.test(v.lang);}).sort(function(a,b){return scoreVoice(b)-scoreVoice(a);});
+    var saved=null; try{ saved=localStorage.getItem('erg_voice'); }catch(_){}
+    enVoice = (saved && enVoices.filter(function(v){return v.name===saved;})[0]) || enVoices[0] || null;
+    if(!enVoice && $('tts-warn')) $('tts-warn').classList.remove('hide');
+    refreshVoiceSelectors();
+  }
+  if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged=pickVoice; setTimeout(pickVoice,300); setTimeout(pickVoice,1200); }
+
+  function voiceSelectHTML(){
+    if(!enVoices.length) return '<i style="color:#8aa">(đang tải danh sách giọng…)</i>';
+    var opts=enVoices.map(function(v){
+      var lbl=v.name.replace(/Microsoft |Google /,'')+' · '+v.lang;
+      return '<option value="'+v.name.replace(/"/g,'')+'"'+(enVoice&&v.name===enVoice.name?' selected':'')+'>'+lbl+'</option>';
+    }).join('');
+    return '<select class="vsel" onchange="App.setVoice(this.value)">'+opts+'</select>';
+  }
+  function refreshVoiceSelectors(){
+    document.querySelectorAll('.vsel-wrap').forEach(function(w){ w.innerHTML='🔊 Giọng đọc: '+voiceSelectHTML(); });
+  }
+  function setVoice(name){
+    var v=enVoices.filter(function(x){return x.name===name;})[0]; if(!v) return;
+    enVoice=v; try{ localStorage.setItem('erg_voice',name); }catch(_){}
+    refreshVoiceSelectors();
+    speak('Hello. This is the selected English voice. Can you hear it clearly?');
+  }
 
   let speaking=false;
   function speak(text,btn){
     if(!('speechSynthesis' in window)){ alert('Trình duyệt không hỗ trợ giọng đọc. Hãy đọc lời thoại bằng chữ bên dưới.'); return; }
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
-    u.lang='en-GB'; u.rate=(CAP==='thpt'?0.95:CAP==='thcs'?0.9:0.86); if(enVoice)u.voice=enVoice;
+    u.lang=(enVoice&&enVoice.lang)||'en-US'; u.rate=0.95; u.pitch=1.0; u.volume=1.0; if(enVoice)u.voice=enVoice;
     if(btn){ const old=btn.innerHTML; btn.innerHTML='⏹ Dừng'; speaking=true;
       u.onend=()=>{btn.innerHTML=old;speaking=false;}; u.onerror=()=>{btn.innerHTML=old;speaking=false;}; }
     speechSynthesis.speak(u);
@@ -302,6 +340,7 @@ const App = (()=>{
     else if(s.type==='speak'){ h+=renderSpeak(s); }
     else { h+=s.parts.map((p,pi)=>renderPart(s,p,pi)).join(''); }
     host().innerHTML=h;
+    refreshVoiceSelectors();
     $('btn-prev').style.visibility = cur===0?'hidden':'visible';
     $('btn-next').textContent = cur===DATA.sections.length-1 ? '✔ Nộp bài & xem kết quả' : 'Phần tiếp theo →';
     renderSteps();
@@ -317,6 +356,7 @@ const App = (()=>{
       h+=`<div class="audio-box"><div class="lbl">🎧 Bấm để nghe (giọng đọc tự động — có thể nghe lại)</div>
         <button class="btn" onclick="App.play(this,${cur},${pi})">▶ Phát audio</button>
         <button class="btn sec" onclick="App.showScript(this)">📄 Xem lời thoại</button>
+        <div class="vsel-wrap" style="margin-top:12px;font-size:14px;color:#41607f"></div>
         <div class="passage hide" style="text-align:left;margin-top:12px">${p.audio.replace(/\. (Number|Part|[A-Z][a-z]+:)/g,'.<br>$1')}</div>
         </div>`;
     }
@@ -481,7 +521,7 @@ const App = (()=>{
 
   if(ONLY) startPractice();
 
-  return { start, testAudio, nextSection, prevSection, pick, toggleFlag, play, showScript, spStart, finish };
+  return { start, testAudio, nextSection, prevSection, pick, toggleFlag, play, showScript, spStart, finish, setVoice };
 })();
 </script>
 </body>
