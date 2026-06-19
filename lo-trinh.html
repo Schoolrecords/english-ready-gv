@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lộ trình cá nhân — English Ready GV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese,latin" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="appbar">
+  <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l10-4 10 4-10 4z"/><path d="M6 12v5c0 1 2.5 2 6 2s6-1 6-2v-5"/></svg></span>
+  <h1>Lộ trình cá nhân<small id="who">English Ready GV</small></h1>
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg> Trang chủ</a>
+</header>
+
+<div class="wrap">
+  <h2 class="page-title">Lộ trình cá nhân</h2>
+  <p class="page-sub">Gợi ý dựa trên kết quả Nghe &amp; Đọc của thầy/cô đã lưu trên máy này.</p>
+  <div id="content"></div>
+</div>
+
+<script>
+(function(){
+  var stats={}; try{ stats=JSON.parse(localStorage.getItem('erg_stats')||'{}'); }catch(_){}
+  var user={}; try{ user=JSON.parse(localStorage.getItem('erg_user')||'{}'); }catch(_){}
+  var cap='tieuhoc', m={'Tiểu học':'tieuhoc','THCS':'thcs','THPT':'thpt'};
+  if(user.level&&m[user.level]) cap=m[user.level];
+  if(user.name) document.getElementById('who').textContent=user.name+(user.level?' · '+user.level:'');
+
+  var host=document.getElementById('content');
+  var has = (typeof stats.nghe==='number') || (typeof stats.doc==='number');
+
+  if(!has){
+    host.innerHTML='<div class="card"><h2><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg></span>Chưa có dữ liệu</h2>'
+      +'<p class="muted">Thầy/cô hãy làm <b>một bài Khảo sát NL Tiếng Anh</b> để hệ thống chấm Nghe &amp; Đọc và tạo lộ trình phù hợp.</p>'
+      +'<a class="btn" style="margin-top:14px" href="'+encodeURI("khao-sat.html")+'?cap='+cap+'">Làm bài khảo sát ngay</a></div>';
+    return;
+  }
+
+  var nghe=(typeof stats.nghe==='number')?stats.nghe:null;
+  var doc=(typeof stats.doc==='number')?stats.doc:null;
+  function bar(label,val,color){
+    if(val==null) return '<p class="muted" style="margin:8px 0">'+label+': <i>chưa có dữ liệu</i></p>';
+    return '<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;font-weight:800;font-size:14px"><span>'+label+'</span><span style="color:'+color+'">'+val+'%</span></div><div class="bar"><i style="width:'+val+'%;background:'+color+'"></i></div></div>';
+  }
+  var html='<div class="card"><h2><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-7"/></svg></span>Năng lực hiện tại</h2>';
+  html+=bar('Nghe',nghe,'#2563eb')+bar('Đọc',doc,'#8b5cf6');
+  html+='</div>';
+
+  // xác định kỹ năng cần ưu tiên
+  var weak='Nghe', weakOnly='A', weakVal=nghe;
+  if(nghe==null || (doc!=null && doc<nghe)){ weak='Đọc'; weakOnly='B'; weakVal=doc; }
+  var level = (weakVal!=null && weakVal>=85)?'rất tốt':(weakVal!=null && weakVal>=65)?'khá':(weakVal!=null && weakVal>=40)?'cơ bản':'cần củng cố';
+
+  html+='<div class="card"><h2><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 .5-5.5 4.5 2 7L12 17l-6.5 4 2-7L2 9.5 9 9z"/></svg></span>Lộ trình gợi ý tuần này</h2>';
+  html+='<p class="muted" style="margin-bottom:12px">Ưu tiên kỹ năng <b>'+weak+'</b> (mức '+level+'). Mỗi tuần nên:</p>';
+  html+='<div class="step"><span class="n">1</span><div><b>Luyện '+weak+' — 2 buổi (15–20 phút)</b><div class="d">Tập trung kỹ năng yếu nhất để nâng mức nhanh nhất.</div></div></div>';
+  html+='<div class="step"><span class="n">2</span><div><b>Làm 1 đề Khảo sát đầy đủ (có tính giờ)</b><div class="d">Làm quen áp lực thời gian &amp; cấu trúc 4 kỹ năng.</div></div></div>';
+  html+='<div class="step"><span class="n">3</span><div><b>Luyện Nói 10 phút/ngày</b><div class="d">Thu âm, nghe lại và tự sửa phát âm.</div></div></div>';
+  html+='<div class="step"><span class="n">4</span><div><b>Viết 1 đoạn ngắn theo chủ đề</b><div class="d">Rèn câu đúng ngữ pháp, đủ ý.</div></div></div>';
+  html+='<div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">'
+    +'<a class="btn" href="'+encodeURI("khao-sat.html")+'?cap='+cap+'&only='+weakOnly+'">Luyện '+weak+' ngay</a>'
+    +'<a class="btn" style="background:#fff;color:var(--blue);border:1px solid var(--line);box-shadow:none" href="luyen-4-ky-nang.html?cap='+cap+'">Mở Luyện 4 kỹ năng</a></div>';
+  html+='</div>';
+
+  if(typeof stats.done==='number'){
+    html+='<div class="card"><h2><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Tiến độ</h2>'
+      +'<p class="muted">Đã hoàn thành <b>'+stats.done+'</b> lượt · Chuỗi <b>'+(stats.streak||1)+'</b> ngày'
+      +((typeof stats.hours==='number')?(' · Tổng thời gian <b>'+stats.hours+'h'+(stats.mins||0)+'p</b>'):'')+'.</p></div>';
+  }
+  host.innerHTML=html;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+/* ===== English Ready GV — stylesheet dùng chung cho các trang con ===== */
+:root{
+  --blue:#2563eb;--blue-d:#1d4ed8;--blue-soft:#eaf1ff;
+  --green:#10b981;--green-soft:#e4f7f0;
+  --purple:#8b5cf6;--purple-soft:#f0eafe;
+  --orange:#f97316;--orange-soft:#fff0e3;
+  --amber:#d97706;--amber-soft:#fdf2e3;
+  --ink:#22324a;--ink-2:#5e6e83;--muted:#94a3b6;
+  --bg:#f4f7fc;--card:#fff;--line:#e9eef6;--r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);font-weight:600;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{text-decoration:none;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+
+.appbar{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:13px;padding:12px 20px}
+.appbar .logo{width:40px;height:40px;border-radius:11px;background:var(--blue);display:grid;place-items:center;color:#fff;flex:none}
+.appbar .logo svg{width:23px;height:23px}
+.appbar h1{font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.15}
+.appbar h1 small{display:block;font-size:11.5px;color:var(--muted);font-weight:600}
+.appbar .back{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:var(--blue-soft);color:var(--blue);font-weight:800;font-size:13.5px;padding:9px 15px;border-radius:10px;white-space:nowrap}
+.appbar .back:hover{background:#dbe8ff}
+.appbar .back svg{width:16px;height:16px}
+
+.wrap{max-width:980px;margin:0 auto;padding:26px 20px 60px}
+.page-title{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.page-sub{color:var(--ink-2);font-weight:600;margin-bottom:24px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 2px 8px rgba(20,40,80,.05);padding:22px 24px;margin-bottom:18px}
+.card h2{font-size:17px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.card h2 .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;background:var(--blue-soft);color:var(--blue)}
+.card h2 .ic svg{width:18px;height:18px}
+.muted{color:var(--ink-2);font-weight:600}
+
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--blue);color:#fff;border:0;font-family:inherit;font-weight:800;font-size:14.5px;padding:12px 20px;border-radius:11px;cursor:pointer;box-shadow:0 8px 18px rgba(37,99,235,.25);transition:.15s}
+.btn:hover{background:var(--blue-d);transform:translateY(-1px)}
+.btn svg{width:17px;height:17px}
+
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td,th{border:1px solid var(--line);padding:10px 12px;text-align:left}
+th{background:#f1f5fb;font-weight:800}
+
+.acc{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;background:#fff}
+.acc summary{cursor:pointer;padding:14px 18px;font-weight:800;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:'+';color:var(--muted);font-size:22px;line-height:1}
+.acc[open] summary::after{content:'–'}
+.acc .body{padding:0 18px 16px;color:var(--ink-2);font-weight:600;line-height:1.6}
+
+.skill-card{padding:22px;border-radius:var(--r);border:1px solid var(--line);background:#fff;box-shadow:0 2px 8px rgba(20,40,80,.05)}
+.skill-card .top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.skill-card .badge{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none}
+.skill-card .badge svg{width:24px;height:24px}
+.skill-card .nm{font-size:17px;font-weight:800}
+.skill-card p{color:var(--ink-2);font-weight:600;font-size:13.5px;margin-bottom:16px;min-height:38px}
+.s-blue .badge{background:var(--blue)} .s-green .badge{background:var(--green)}
+.s-purple .badge{background:var(--purple)} .s-orange .badge{background:var(--orange)}
+
+.bar{height:10px;background:#eef2f8;border-radius:99px;overflow:hidden;margin:8px 0}
+.bar>i{display:block;height:100%;border-radius:99px;background:var(--blue)}
+.tag{display:inline-block;font-weight:800;font-size:12px;padding:3px 10px;border-radius:8px;background:var(--blue-soft);color:var(--blue)}
+
+.step{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid #eef2f8}
+.step:last-child{border-bottom:0}
+.step .n{width:28px;height:28px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-weight:800;display:grid;place-items:center;flex:none;font-size:13px}
+.step b{font-size:14.5px}
+.step .d{color:var(--ink-2);font-weight:600;font-size:13px}
+
+textarea{width:100%;min-height:140px;padding:14px;border:1px solid var(--line);border-radius:12px;font-family:inherit;font-size:15px;font-weight:600;line-height:1.6;resize:vertical;background:#f7faff}
+textarea:focus{outline:none;border-color:#bcd4ff;box-shadow:0 0 0 4px var(--blue-soft);background:#fff}
+
+@media(max-width:680px){
+  .grid2{grid-template-columns:1fr}
+  .wrap{padding:18px 14px 50px}
+  .appbar{padding:10px 14px}.appbar h1{font-size:16px}
+  .page-title{font-size:20px}
+}

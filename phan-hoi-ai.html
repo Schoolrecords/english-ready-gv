@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phản hồi AI — English Ready GV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap&subset=vietnamese,latin" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="appbar">
+  <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l10-4 10 4-10 4z"/><path d="M6 12v5c0 1 2.5 2 6 2s6-1 6-2v-5"/></svg></span>
+  <h1>Phản hồi AI<small>English Ready GV</small></h1>
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg> Trang chủ</a>
+</header>
+
+<div class="wrap">
+  <h2 class="page-title">Phản hồi học tập</h2>
+  <p class="page-sub">Nhận xét tự động dựa trên kết quả của thầy/cô và công cụ tự kiểm tra bài Viết.</p>
+
+  <div class="card" style="background:var(--amber-soft);border-color:#f3dca6">
+    <p class="muted" style="color:#8a5a08"><b>Lưu ý:</b> đây là phản hồi <b>tự động theo quy tắc</b> (gợi ý tham khảo), <i>chưa phải</i> AI chấm điểm thực thụ. Tính năng AI chấm chi tiết phần Nói/Viết sẽ được bổ sung khi kết nối dịch vụ AI.</p>
+  </div>
+
+  <div id="auto"></div>
+
+  <div class="card">
+    <h2><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>Tự kiểm tra bài Viết</h2>
+    <p class="muted" style="margin-bottom:12px">Dán đoạn văn tiếng Anh của bạn vào ô dưới và bấm <b>Phân tích</b> để nhận nhận xét nhanh (số từ, số câu, một số lỗi thường gặp).</p>
+    <textarea id="essay" placeholder="Paste your English writing here..."></textarea>
+    <button class="btn" id="analyze" style="margin-top:12px">Phân tích</button>
+    <div id="result" style="margin-top:16px"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ===== Phản hồi tự động theo điểm =====
+  var stats={}; try{ stats=JSON.parse(localStorage.getItem('erg_stats')||'{}'); }catch(_){}
+  var auto=document.getElementById('auto');
+  function tip(skill,val,good,mid,low){
+    var t = val>=70?good : val>=45?mid : low;
+    var color = val>=70?'#10b981' : val>=45?'#d97706' : '#ef4444';
+    return '<div class="step"><span class="n" style="background:'+color+'22;color:'+color+'">'+val+'</span><div><b>'+skill+' — '+val+'%</b><div class="d">'+t+'</div></div></div>';
+  }
+  var h='';
+  if(typeof stats.nghe==='number' || typeof stats.doc==='number'){
+    h+='<div class="card"><h2><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.6 3.6L17 9l-3.4 1.4L12 14l-1.6-3.6L7 9l3.4-1.4z" fill="currentColor" stroke="none"/></svg></span>Nhận xét theo kết quả gần đây</h2>';
+    if(typeof stats.nghe==='number') h+=tip('Nghe',stats.nghe,
+      'Rất tốt! Hãy thử nội dung nhanh và học thuật hơn để duy trì phong độ.',
+      'Khá ổn. Luyện nghe số liệu/thời gian/tên riêng và nghe lại lời thoại.',
+      'Cần củng cố. Nghe đoạn ngắn nhiều lần, đọc kèm lời thoại để bắt âm.');
+    if(typeof stats.doc==='number') h+=tip('Đọc',stats.doc,
+      'Rất tốt! Mở rộng từ vựng học thuật và đọc bài dài hơn.',
+      'Khá ổn. Luyện kỹ năng tìm thông tin (scanning) và đoán nghĩa qua ngữ cảnh.',
+      'Cần củng cố. Bắt đầu từ biển báo/thông báo ngắn rồi tăng dần độ dài.');
+    h+='</div>';
+  } else {
+    h+='<div class="card"><p class="muted">Chưa có kết quả Nghe/Đọc. Hãy làm <b>một bài khảo sát</b> để nhận nhận xét tự động.</p></div>';
+  }
+  auto.innerHTML=h;
+
+  // ===== Tự kiểm tra bài Viết (theo quy tắc) =====
+  document.getElementById('analyze').addEventListener('click', function(){
+    var t=document.getElementById('essay').value.trim();
+    var res=document.getElementById('result');
+    if(!t){ res.innerHTML='<p class="muted">Hãy nhập đoạn văn trước nhé.</p>'; return; }
+    var words=(t.match(/[A-Za-zÀ-ỹ']+/g)||[]).length;
+    var sentences=(t.match(/[.!?]+/g)||[]).length || 1;
+    var avg=Math.round(words/sentences);
+    var notes=[];
+    if(words<40) notes.push(['warn','Đoạn khá ngắn ('+words+' từ) — cân nhắc viết thêm để đủ ý.']);
+    else notes.push(['ok','Độ dài hợp lý ('+words+' từ).']);
+    if(avg>25) notes.push(['warn','Câu trung bình dài ('+avg+' từ/câu) — thử tách thành câu ngắn, rõ hơn.']);
+    else notes.push(['ok','Độ dài câu ổn (~'+avg+' từ/câu).']);
+    // chữ hoa đầu câu
+    var badCap=(t.match(/[.!?]\s+[a-z]/g)||[]).length + (/^[a-z]/.test(t)?1:0);
+    if(badCap>0) notes.push(['warn',badCap+' chỗ có thể thiếu <b>viết hoa đầu câu</b>.']);
+    else notes.push(['ok','Viết hoa đầu câu tốt.']);
+    // "i" viết thường
+    if(/\bi\b/.test(t)) notes.push(['warn','Đại từ <b>“I”</b> phải luôn viết hoa.']);
+    // lặp từ
+    var lc=t.toLowerCase().match(/[a-z']+/g)||[]; var freq={},rep=[];
+    lc.forEach(function(w){ if(w.length>=5){ freq[w]=(freq[w]||0)+1; } });
+    Object.keys(freq).forEach(function(w){ if(freq[w]>=4) rep.push(w); });
+    if(rep.length) notes.push(['warn','Một số từ lặp nhiều lần: <b>'+rep.slice(0,4).join(', ')+'</b> — thử dùng từ đồng nghĩa.']);
+
+    var html='<div class="card" style="margin:0"><h2 style="margin-bottom:10px">Kết quả phân tích</h2>';
+    notes.forEach(function(n){
+      var c=n[0]==='ok'?'#10b981':'#d97706';
+      html+='<div class="step" style="border-bottom:1px solid #eef2f8"><span class="n" style="background:'+c+'22;color:'+c+'">'+(n[0]==='ok'?'✓':'!')+'</span><div><div class="d" style="color:var(--ink)">'+n[1]+'</div></div></div>';
+    });
+    html+='<p class="muted" style="margin-top:12px;font-size:12.5px">* Phân tích tự động mang tính tham khảo, không thay thế đánh giá của giáo viên/giám khảo.</p></div>';
+    res.innerHTML=html;
+  });
+})();
+</script>
+</body>
+</html>

@@ -565,6 +565,14 @@
       if(label==='Khảo sát NL Tiếng Anh'){ openTest(); return; }
       if(label==='Trang chủ'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
       if(label==='Kiểm tra thiết bị'){ checkDevices(); return; }
+      var routes={
+        'Lộ trình cá nhân':'lo-trinh.html',
+        'Luyện 4 kỹ năng':'luyen-4-ky-nang.html?cap='+capFromUI(),
+        'Phản hồi AI':'phan-hoi-ai.html',
+        'Tài liệu':'tai-lieu.html',
+        'Hỗ trợ':'ho-tro.html'
+      };
+      if(routes[label]){ window.location.href=routes[label]; return; }
       toast('Tính năng “'+label+'” đang được xây dựng — sẽ có trong bản cập nhật tới.');
     });
   });
