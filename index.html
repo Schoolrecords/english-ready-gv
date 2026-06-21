@@ -63,6 +63,7 @@
 
   /* ===== TOP BAR ===== */
   .topbar{display:flex;align-items:center;gap:22px;padding:14px 30px;background:#fff;border-bottom:1px solid var(--line)}
+  .tb-title{font-weight:800;font-size:18px;color:var(--blue);display:none}
   .search{flex:1;max-width:720px;position:relative}
   .search svg{position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--muted);width:19px;height:19px}
   .search input{width:100%;padding:13px 18px 13px 50px;border:1px solid var(--line);border-radius:999px;background:#f5f8fc;font-size:14px;font-family:inherit;font-weight:600;color:var(--ink);outline:none;transition:.16s}
@@ -121,7 +122,9 @@
 
   /* skill cards */
   .skills{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px}
-  .skill{padding:18px 18px 16px;position:relative}
+  .skill{padding:18px 18px 16px;position:relative;transition:transform .15s,box-shadow .15s}
+  .skill:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(37,99,235,.16)}
+  .skill:active{transform:translateY(0)}
   .skill .head{display:flex;align-items:center;gap:11px;margin-bottom:12px}
   .skill .badge{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none}
   .skill .badge svg{width:24px;height:24px;color:#fff}
@@ -252,6 +255,7 @@
   @media (max-width:1080px){
     .app{grid-template-columns:1fr}
     .corner{display:none}
+    .tb-title{display:block}
     .topbar{grid-area:auto}
     .content{grid-area:auto;padding:20px 18px 36px}
     .side{grid-area:auto;flex-direction:row;overflow-x:auto;gap:8px;border-right:0;border-bottom:1px solid var(--line);padding:10px 14px;-webkit-overflow-scrolling:touch}
@@ -317,10 +321,7 @@
 
   <!-- ===== TOP BAR ===== -->
   <header class="topbar">
-    <div class="search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-      <input type="text" placeholder="Tìm kiếm bài học, tài liệu, chủ đề…">
-    </div>
+    <div class="tb-title">English Ready GV</div>
     <div class="top-right">
       <div class="ic-btn" title="Thông báo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
@@ -544,6 +545,18 @@
   }
   function openTest(e){ if(e) e.preventDefault(); window.location.href = encodeURI(TEST_FILE)+'?cap='+capFromUI(); }
   document.getElementById('btn-start').addEventListener('click', openTest);
+
+  // ---- Bấm vào thẻ kỹ năng để LUYỆN RIÊNG kỹ năng đó (Nghe/Nói/Đọc/Viết) ----
+  var SKILL_ONLY={nghe:'A',doc:'B',viet:'D',noi:'E'};
+  var SKILL_LABEL={nghe:'Nghe',doc:'Đọc',viet:'Viết',noi:'Nói'};
+  Object.keys(SKILL_ONLY).forEach(function(k){
+    var el=document.querySelector('.s-'+k); if(!el) return;
+    el.style.cursor='pointer';
+    el.setAttribute('title','Bấm để luyện '+SKILL_LABEL[k]);
+    el.addEventListener('click', function(){
+      window.location.href = encodeURI(TEST_FILE)+'?cap='+capFromUI()+'&only='+SKILL_ONLY[k];
+    });
+  });
 
   // ---- Thông báo nhỏ (toast) ----
   function toast(msg){
