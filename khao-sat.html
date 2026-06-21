@@ -132,8 +132,12 @@
       </div>
       <p class="muted" style="font-size:14px;margin:4px 0 0">Theo Kế hoạch số 2015/KH-SGDĐT (Nghệ An, 17/6/2026): giáo viên tự đánh giá năng lực từ <b>Bậc 2 đến Bậc 4</b> đều tham gia, <b>không phân theo cấp học</b>. Hãy chọn đúng bậc của mình để luyện sát nhất.</p>
 
-      <label class="field">Chọn đề khảo sát</label>
-      <div class="levelpick" id="depick"></div>
+      <label class="field">Đề khảo sát</label>
+      <div class="note" style="background:#eaf3ff;border-color:#bcd6f5;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span>🎲 Như bài thi thật, hệ thống đã chọn đề cho bạn: <b id="de-name">—</b></span>
+        <button type="button" class="btn ghost" id="de-toggle" style="padding:8px 16px;font-size:15px">Chọn đề khác ▾</button>
+      </div>
+      <div class="levelpick" id="depick" style="display:none"></div>
 
       <label class="field">Họ và tên</label>
       <input type="text" id="in-name" placeholder="Ví dụ: Nguyễn Thị Hoa">
@@ -257,6 +261,13 @@ const App = (()=>{
   $('depick').innerHTML=LEVEL.des.map(function(d){
     return '<a href="?cap='+CAP+'&de='+d.id+'"'+(d.id===DATA.id?' class="cur"':'')+'>'+d.name+'</a>';
   }).join('');
+  // tên đề được giao + nút mở danh sách "Chọn đề khác"
+  if($('de-name')) $('de-name').textContent=DATA.name;
+  if($('de-toggle')) $('de-toggle').addEventListener('click',function(){
+    var dp=$('depick'), open=dp.style.display!=='none';
+    dp.style.display=open?'none':'flex';
+    this.textContent=open?'Chọn đề khác ▾':'Ẩn danh sách đề ▴';
+  });
   if(ONLY){
     var skillName={A:'Nghe',B:'Đọc',C:'Use of English',D:'Viết',E:'Nói'}[ONLY]||'';
     $('brand-sub').textContent='Luyện kỹ năng: '+skillName+' · '+LEVEL.label;
