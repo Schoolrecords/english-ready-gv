@@ -331,8 +331,8 @@ if(!ONLY){
 const App = (()=>{
   let cur=0, answers={}, writing={}, flags={}, totalMcq=0, startTime=null;
   let endTime=null, timerInt=null;
-  let liSection=-1, liPart=0, liQ=0, liPlayed={}, liFin=false, liTimer=null;
-  const QSEC=15;
+  let liSection=-1, liPart=0, liQ=0, liPlayed={}, liFin=false, liTimer=null, liSegs=null, liLocked=false;
+  const ANSSEC=8, LOCKSEC=15;
   const TEST_MINUTES=LEVEL.minutes;
   const $=id=>document.getElementById(id);
   const host=()=>$('section-host');
@@ -430,13 +430,15 @@ const App = (()=>{
   }
 
   let speaking=false;
-  function speak(text,btn){
-    if(!('speechSynthesis' in window)){ alert('Trình duyệt không hỗ trợ giọng đọc. Hãy đọc lời thoại bằng chữ bên dưới.'); return; }
+  function speak(text,btn,onDone){
+    if(!('speechSynthesis' in window)){ alert('Trình duyệt không hỗ trợ giọng đọc. Hãy đọc lời thoại bằng chữ bên dưới.'); if(onDone)onDone(); return; }
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
     u.lang=(enVoice&&enVoice.lang)||'en-US'; u.rate=(EXAM?1.0:0.85); u.pitch=1.0; u.volume=1.0; if(enVoice)u.voice=enVoice;
-    if(btn){ const old=btn.innerHTML; btn.innerHTML='⏹ Dừng'; speaking=true;
-      u.onend=()=>{btn.innerHTML=old;speaking=false;}; u.onerror=()=>{btn.innerHTML=old;speaking=false;}; }
+    const old=btn?btn.innerHTML:null; if(btn){ btn.innerHTML='⏹ Dừng'; }
+    speaking=true;
+    let done=false; const fin=()=>{ if(done)return; done=true; if(btn)btn.innerHTML=old; speaking=false; if(onDone)onDone(); };
+    u.onend=fin; u.onerror=fin;
     speechSynthesis.speak(u);
   }
   function testAudio(){ speak('Hello, teacher. This is a test of the English voice. If you can hear this clearly, your sound is working well.'); }
@@ -498,7 +500,8 @@ const App = (()=>{
     else if(s.type==='speak'){ h+=renderSpeak(s); }
     else if(s.type==='readaloud'){ h+=renderReadAloud(s); }
     else if(EXAM && s.type==='listen'){
-      if(liSection!==cur){ liSection=cur; liPart=0; liQ=0; liPlayed={}; liFin=false; }
+      if(liSection!==cur){ liSection=cur; liPart=0; liQ=0; liPlayed={}; liFin=false; liLocked=false;
+        var p0=s.parts&&s.parts[0]; liSegs=p0?splitNumbered(p0.audio,p0.questions.length):null; }
       h+=renderListenExam(s);
     }
     else { h+=s.parts.map((p,pi)=>renderPart(s,p,pi)).join(''); }
@@ -578,37 +581,73 @@ const App = (()=>{
     btn.onclick=function(){ clearInterval(spTimer); if(rec&&mediaRec&&mediaRec.state!=='inactive')mediaRec.stop(); st.innerHTML='✔ Hoàn thành'; btn.textContent='▶ Làm lại'; btn.onclick=function(){raStart(id,secs);}; };
   }
 
-  /* ====== NGHE — CHẾ ĐỘ THI THẬT (câu tự trôi / phần sau cho sửa) ====== */
+  /* ====== NGHE — CHẾ ĐỘ THI THẬT (audio khớp câu hỏi) ======
+     - Tách được audio theo câu (có "Number one/two…"): hiện TỪNG câu, phát đúng
+       đoạn audio của câu đó, nghe xong mới đếm giờ trả lời rồi tự sang câu tiếp.
+     - Không tách được: hiện CẢ phần, audio phát một lần, nghe xong khóa Phần 1. */
+  function splitNumbered(audio,n){
+    if(!audio) return null;
+    var chunks=audio.split(/(?=Number\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|\d+)\b)/i);
+    var intro='', segs=[];
+    chunks.forEach(function(c){ c=c.trim(); if(!c)return; if(/^Number\s/i.test(c)) segs.push(c); else intro+=(intro?' ':'')+c; });
+    if(segs.length!==n) return null;
+    if(intro) segs[0]=intro+' '+segs[0];
+    return segs;
+  }
   function renderListenExam(s){
     var parts=s.parts, p=parts[liPart], h='<div class="card">';
     h+='<h3>'+p.title+(parts.length>1?' · Phần nghe '+(liPart+1)+'/'+parts.length:'')+'</h3>';
-    h+='<div class="note" style="background:#fdeaea;border-color:#f0a3a3">🎧 Audio chỉ phát <b>một lần</b>, không nghe lại được.'+(liPart===0?' Mỗi câu <b>tự trôi</b> sau '+QSEC+' giây, không quay lại được.':' Phần này bạn <b>được xem lại và sửa</b> nếu còn giờ.')+'</div>';
-    if(liPart===0){
+    var isAuto=(liPart===0);
+    h+='<div class="note" style="background:#fdeaea;border-color:#f0a3a3">🎧 Audio chỉ phát <b>một lần</b>, không nghe lại được.'+(isAuto?' Phần 1 <b>không quay lại sửa</b> được.':' Phần này bạn <b>được xem lại và sửa</b> nếu còn giờ.')+'</div>';
+    if(isAuto && liSegs){
       var q=p.questions[liQ];
-      h+='<div class="muted" style="font-weight:800;margin-bottom:6px">Câu '+(liQ+1)+'/'+p.questions.length+' · ⏳ còn <b id="li-count">'+QSEC+'</b>s</div>';
+      h+='<div class="muted" style="font-weight:800;margin-bottom:6px">Câu '+(liQ+1)+'/'+p.questions.length+' · <span id="li-count">🔊 Đang phát…</span></div>';
       h+=qHTML(q);
       h+='<div class="navbar"><span></span><button class="btn" onclick="App.liNext()">Câu tiếp →</button></div>';
     } else {
+      if(isAuto) h+='<div class="muted" style="font-weight:800;margin-bottom:6px"><span id="li-count">🔊 Đang phát…</span></div>';
       p.questions.forEach(function(q){ h+=qHTML(q); });
-      h+='<div class="navbar"><span></span><button class="btn" onclick="App.liNextPart()">'+(liPart<parts.length-1?'Phần nghe tiếp →':'Xong phần Nghe ✔')+'</button></div>';
+      var last=(liPart>=parts.length-1);
+      h+='<div class="navbar"><span></span><button class="btn" onclick="App.liNextPart()">'+(last?'Xong phần Nghe ✔':(isAuto?'Xong Phần 1 →':'Phần nghe tiếp →'))+'</button></div>';
     }
     h+='</div>';
     return h;
   }
   function liAfterRender(s){
-    if(!liPlayed[liPart]){ liPlayed[liPart]=true; var p=s.parts[liPart]; if(p.audio) speak(p.audio); }
-    if(liPart===0) startLiCountdown();
+    var p=s.parts[liPart];
+    if(liPart===0 && liSegs){
+      // phát đúng đoạn audio của câu đang hiện; xong mới cho đếm giờ trả lời
+      var el=$('li-count'); if(el) el.innerHTML='🔊 Đang phát…';
+      speak(liSegs[liQ], null, function(){ startAnswerCountdown(); });
+    } else if(liPart===0){
+      // không tách được: phát cả audio một lần, xong thì cho ít giây rồi khóa
+      if(!liPlayed[0]){ liPlayed[0]=true; if(p.audio) speak(p.audio,null,startLockCountdown); else startLockCountdown(); }
+    } else {
+      if(!liPlayed[liPart]){ liPlayed[liPart]=true; if(p.audio) speak(p.audio); }
+    }
   }
-  function startLiCountdown(){
+  function startAnswerCountdown(){
     if(liTimer) clearInterval(liTimer);
-    var left=QSEC; var el=$('li-count'); if(el) el.textContent=left;
-    liTimer=setInterval(function(){ left--; var e=$('li-count'); if(e)e.textContent=left; if(left<=0){ clearInterval(liTimer); liNext(); } },1000);
+    var left=ANSSEC; var el=$('li-count'); if(el) el.innerHTML='⏳ Chọn trong <b>'+left+'</b>s';
+    liTimer=setInterval(function(){ left--; var e=$('li-count'); if(e)e.innerHTML='⏳ Chọn trong <b>'+left+'</b>s'; if(left<=0){ clearInterval(liTimer); liNext(); } },1000);
   }
-  function liNext(){
+  function startLockCountdown(){
     if(liTimer) clearInterval(liTimer);
+    var left=LOCKSEC; var el=$('li-count'); if(el) el.innerHTML='⏳ Còn <b>'+left+'</b>s để chọn (sau đó khóa)';
+    liTimer=setInterval(function(){ left--; var e=$('li-count'); if(e)e.innerHTML='⏳ Còn <b>'+left+'</b>s để chọn (sau đó khóa)';
+      if(left<=0){ clearInterval(liTimer); lockPart1(); } },1000);
+  }
+  function lockPart1(){
+    liLocked=true;
+    document.querySelectorAll('#section-host input[type=radio]').forEach(function(i){ i.disabled=true; });
+    var el=$('li-count'); if(el) el.innerHTML='🔒 Hết giờ Phần 1 — đáp án đã khóa';
+  }
+  function liNext(){   // chỉ dùng ở chế độ tách theo câu
+    if(liTimer) clearInterval(liTimer);
+    if('speechSynthesis' in window) speechSynthesis.cancel();
     var s=DATA.sections[cur], p0=s.parts[0];
     if(liQ < p0.questions.length-1){ liQ++; renderSection(); }
-    else { if('speechSynthesis' in window) speechSynthesis.cancel(); liPart=1; if(liPart>=s.parts.length){ liFin=true; nextSection(); } else renderSection(); }
+    else { liPart=1; if(liPart>=s.parts.length){ liFin=true; nextSection(); } else renderSection(); }
   }
   function liNextPart(){
     if(liTimer) clearInterval(liTimer);
