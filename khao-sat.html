@@ -159,9 +159,16 @@
       <label class="field">Đơn vị công tác</label>
       <input type="text" id="in-school" placeholder="Ví dụ: Trường ...">
 
+      <label class="field">Chế độ làm bài</label>
+      <div class="levelpick" id="modepick">
+        <a href="#" data-mode="practice">🧪 Luyện tập<br><small style="font-weight:600">Giọng chậm, được nghe lại</small></a>
+        <a href="#" data-mode="exam">🎯 Thi thật<br><small style="font-weight:600">Giọng tốc độ thật, câu Nghe tự trôi</small></a>
+      </div>
+      <p class="muted" style="font-size:14px;margin:4px 0 0">Chế độ <b>“Thi thật”</b> mô phỏng sát phòng thi: phần Nghe phát <b>một lần, câu tự trôi</b> không quay lại được, giọng đọc ở <b>tốc độ người bản xứ</b>, và có <b>màn hình đăng nhập</b> như khi thi. Mới luyện nên chọn <b>“Luyện tập”</b> trước.</p>
+
       <div class="note" style="background:#eaf3ff;border-color:#bcd6f5">
         ⏱️ <b>Bài làm trong <span id="w-min">35</span> phút.</b>
-        Đồng hồ tự đếm ngược khi bắt đầu; hết giờ hệ thống tự nộp bài. Đề gồm đủ 4 kỹ năng: Nghe – Đọc – Use of English – Viết – Nói.
+        Đồng hồ tự đếm ngược khi bắt đầu; hết giờ hệ thống tự nộp bài. Bài khảo sát thật gồm <b>4 kỹ năng: Nghe – Đọc – Viết – Nói</b> (phần <i>Use of English</i> ở đây là luyện thêm).
       </div>
       <div class="note">
         <b>Điều kiện thiết bị (theo Kế hoạch khảo sát):</b> 🎧 <b>tai nghe kèm micro</b> hoạt động tốt · 🖱️ chuột · 🌐 đường truyền Internet ổn định <b>≥ 5 Mbps</b> · 🔊 kiểm tra âm lượng.
@@ -182,18 +189,54 @@
     </div>
 
     <div class="card">
-      <h3>Cấu trúc bài khảo sát</h3>
+      <h3>Cấu trúc bài khảo sát <span class="pill">thứ tự như thi thật</span></h3>
       <div class="tbl-scroll">
       <table class="sum">
-        <tr><th>Phần</th><th>Kỹ năng</th><th>Nội dung</th></tr>
-        <tr><td>A</td><td>Listening (Nghe)</td><td>Hội thoại / thông báo / quan điểm — theo cấp học</td></tr>
-        <tr><td>B</td><td>Reading (Đọc)</td><td>Biển báo / thông báo / đoạn văn</td></tr>
-        <tr><td>C</td><td>Use of English</td><td>Từ vựng – Ngữ pháp</td></tr>
-        <tr><td>D</td><td>Writing (Viết)</td><td>Tin nhắn / email / đoạn văn nghị luận</td></tr>
-        <tr><td>E</td><td>Speaking (Nói)</td><td>Giới thiệu bản thân · trình bày quan điểm</td></tr>
+        <tr><th>#</th><th>Kỹ năng</th><th>Nội dung</th></tr>
+        <tr><td>1</td><td>Listening (Nghe)</td><td>Hội thoại / thông báo / quan điểm. Phần 1 <b>câu tự trôi</b>; phần sau được xem lại.</td></tr>
+        <tr><td>2</td><td>Reading aloud (Đọc thành tiếng)</td><td><b>Chờ tiếng “bíp” rồi đọc to</b> đoạn văn vào micro (được thu âm).</td></tr>
+        <tr><td>3</td><td>Writing (Viết)</td><td>Tin nhắn / email / đoạn văn nghị luận</td></tr>
+        <tr><td>4</td><td>Speaking (Nói)</td><td>Giới thiệu bản thân · trình bày quan điểm</td></tr>
+        <tr style="color:#7a8694"><td>+</td><td>Đọc hiểu &amp; Use of English</td><td><i>Luyện thêm</i> — không có trong bài thi thật; xếp ở cuối.</td></tr>
       </table>
       </div>
-      <p class="muted" style="font-size:14px;margin-top:10px">Bài khảo sát chính thức gồm <b>4 kỹ năng</b>: Nghe – Đọc – Viết – Nói. Phần <b>Use of English</b> (từ vựng – ngữ pháp) ở đây là nội dung <b>luyện thêm</b>, được tính gộp vào điểm Đọc trên Trang chủ.</p>
+      <p class="muted" style="font-size:14px;margin-top:10px">Theo lời kể của giáo viên đã thi: bài khảo sát thật gồm <b>4 kỹ năng — Nghe → Đọc thành tiếng → Viết → Nói</b>. Phần <b>Đọc hiểu</b> và <b>Use of English</b> ở đây là nội dung <b>luyện thêm</b>, gộp vào điểm Đọc trên Trang chủ.</p>
+    </div>
+
+    <div class="card">
+      <h3>💡 Mẹo phòng thi (giáo viên đã thi chia sẻ)</h3>
+      <ul class="muted" style="font-size:15.5px;line-height:1.9;margin:6px 0 0;padding-left:22px">
+        <li><b>Luôn chọn một đáp án</b> cho mọi câu Nghe — “thà đánh nhầm còn hơn bỏ sót”, biết đâu đúng.</li>
+        <li>Phần Nghe <b>câu 1 thường trôi rất nhanh</b>: vào là tập trung ngay, đừng chờ.</li>
+        <li>Phần Nghe sau (nhiều câu) <b>được quay lại sửa</b> nếu còn giờ — hãy tận dụng.</li>
+        <li>Phần Đọc thành tiếng: <b>chờ tiếng “bíp” rồi mới đọc</b>, đọc trước là phí công.</li>
+        <li>Không biết vẫn <b>bấm “Tiếp theo”</b> để qua — làm xong được ra sớm.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ MÀN HÌNH ĐĂNG NHẬP MÔ PHỎNG (chế độ Thi thật) ============ -->
+  <section id="screen-login" class="hide">
+    <div class="card">
+      <h1>Đăng nhập phòng khảo sát</h1>
+      <p class="muted">Đây là <b>mô phỏng màn hình đăng nhập</b> bạn sẽ gặp trong phòng thi. Khi thi thật, máy đã hiện sẵn tên bạn và giám thị thường <b>tích sẵn</b> các mục dưới đây — bạn chỉ việc kiểm tra rồi chờ giờ vào làm bài.</p>
+      <div class="passage" style="border-left-color:#10b981">
+        <div style="font-size:15px;color:#41607f">Số máy</div>
+        <div style="font-size:22px;font-weight:800;color:var(--blue)" id="lg-machine">PC-027</div>
+        <div style="font-size:15px;color:#41607f;margin-top:10px">Họ và tên</div>
+        <div style="font-size:20px;font-weight:800" id="lg-name">—</div>
+      </div>
+      <div class="row" style="gap:18px;margin-top:8px">
+        <div style="flex:1;min-width:150px"><label class="field">Giới tính</label>
+          <select class="vsel" id="lg-sex" style="width:100%;font-size:16px;padding:12px"><option>Nữ</option><option>Nam</option></select></div>
+        <div style="flex:1;min-width:150px"><label class="field">Độ tuổi</label>
+          <select class="vsel" id="lg-age" style="width:100%;font-size:16px;padding:12px"><option>20–30</option><option selected>31–40</option><option>41–50</option><option>51–60</option></select></div>
+      </div>
+      <div class="note" style="margin-top:16px">Kiểm tra thông tin đã đúng chưa, rồi bấm <b>Vào khảo sát</b>. Đồng hồ sẽ bắt đầu đếm ngược ngay sau đó.</div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn big" onclick="App.beginTest()">✔ Vào khảo sát</button>
+        <button class="btn ghost" onclick="App.backToWelcome()">← Quay lại</button>
+      </div>
     </div>
   </section>
 
@@ -256,10 +299,40 @@ var DATA=LEVEL.des[DEIDX];   // đề được chọn (có .sections)
 shuffleOptions(DATA);
 if(ONLY){ DATA={ id:DATA.id, name:DATA.name, sections:DATA.sections.filter(function(s){return s.key===ONLY;}) }; }
 
+/* ====== CHẾ ĐỘ THI THẬT + SẮP XẾP THEO THI THẬT + ĐỌC THÀNH TIẾNG ====== */
+var EXAM=false;
+try{ EXAM = !ONLY && localStorage.getItem('erg_exam_mode')==='1'; }catch(_){}
+function stripTags(x){ return String(x||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); }
+function buildReadAloud(){
+  var texts=[];
+  (DATA.sections||[]).forEach(function(s){
+    if(s.key==='B' && s.parts) s.parts.forEach(function(p){ if(p.passage) texts.push(stripTags(p.passage)); });
+  });
+  if(!texts.length){ (DATA.sections||[]).forEach(function(s){ if(s.type==='listen'&&s.parts) s.parts.forEach(function(p){ if(p.passage) texts.push(stripTags(p.passage)); }); }); }
+  if(!texts.length) texts=['My name is Hoa. I am a teacher. I love my school and my students.'];
+  var tasks=texts.slice(0,2).map(function(t,i){ return {id:'ra'+(i+1), title:'Đoạn '+(i+1)+' — Đọc to vào micro', text:t, secs:50}; });
+  return { key:'RA', name:'Đọc thành tiếng', skill:'READING ALOUD (ĐỌC THÀNH TIẾNG)', type:'readaloud',
+    intro:'Khi nghe <b>tiếng “bíp”</b> hãy đọc to đoạn văn vào micro (được thu âm). Giống bài thi thật: <b>chờ bíp rồi mới đọc</b>.', tasks:tasks };
+}
+/* Thứ tự thi thật: Nghe → Đọc thành tiếng → Viết → Nói → (luyện thêm) Đọc hiểu, Use of English */
+if(!ONLY){
+  var byKey={}; DATA.sections.forEach(function(s){ byKey[s.key]=s; });
+  var ordered=[];
+  if(byKey.A) ordered.push(byKey.A);
+  ordered.push(buildReadAloud());
+  if(byKey.D) ordered.push(byKey.D);
+  if(byKey.E) ordered.push(byKey.E);
+  if(byKey.B){ byKey.B.extra=true; ordered.push(byKey.B); }
+  if(byKey.C){ byKey.C.extra=true; ordered.push(byKey.C); }
+  DATA={ id:DATA.id, name:DATA.name, sections:ordered };
+}
+
 /* ====================== TRẠNG THÁI ====================== */
 const App = (()=>{
   let cur=0, answers={}, writing={}, flags={}, totalMcq=0, startTime=null;
   let endTime=null, timerInt=null;
+  let liSection=-1, liPart=0, liQ=0, liPlayed={}, liFin=false, liTimer=null;
+  const QSEC=15;
   const TEST_MINUTES=LEVEL.minutes;
   const $=id=>document.getElementById(id);
   const host=()=>$('section-host');
@@ -283,6 +356,17 @@ const App = (()=>{
     dp.style.display=open?'none':'flex';
     this.textContent=open?'Chọn đề khác ▾':'Ẩn danh sách đề ▴';
   });
+  // công tắc Chế độ Luyện tập / Thi thật
+  (function initMode(){
+    var mp=document.getElementById('modepick'); if(!mp) return;
+    function paint(){ mp.querySelectorAll('a').forEach(function(a){ a.classList.toggle('cur',(a.getAttribute('data-mode')==='exam')===EXAM); }); }
+    mp.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault();
+      EXAM=(a.getAttribute('data-mode')==='exam');
+      try{ localStorage.setItem('erg_exam_mode',EXAM?'1':'0'); }catch(_){}
+      paint();
+    }); });
+    paint();
+  })();
   if(ONLY){
     var skillName={A:'Nghe',B:'Đọc',C:'Use of English',D:'Viết',E:'Nói'}[ONLY]||'';
     $('brand-sub').textContent='Luyện kỹ năng: '+skillName+' · '+LEVEL.label;
@@ -331,12 +415,26 @@ const App = (()=>{
     speak('Hello. This is the selected English voice. Can you hear it clearly?');
   }
 
+  function beep(){
+    try{
+      var Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return new Promise(function(r){setTimeout(r,250);});
+      var ctx=new Ctx(), o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination); o.type='sine'; o.frequency.value=880;
+      g.gain.setValueAtTime(0.0001,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.35,ctx.currentTime+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.34);
+      o.start(); o.stop(ctx.currentTime+0.35);
+      o.onended=function(){ try{ctx.close();}catch(_){} };
+    }catch(e){}
+    return new Promise(function(r){ setTimeout(r,400); });
+  }
+
   let speaking=false;
   function speak(text,btn){
     if(!('speechSynthesis' in window)){ alert('Trình duyệt không hỗ trợ giọng đọc. Hãy đọc lời thoại bằng chữ bên dưới.'); return; }
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
-    u.lang=(enVoice&&enVoice.lang)||'en-US'; u.rate=0.85; u.pitch=1.0; u.volume=1.0; if(enVoice)u.voice=enVoice;
+    u.lang=(enVoice&&enVoice.lang)||'en-US'; u.rate=(EXAM?1.0:0.85); u.pitch=1.0; u.volume=1.0; if(enVoice)u.voice=enVoice;
     if(btn){ const old=btn.innerHTML; btn.innerHTML='⏹ Dừng'; speaking=true;
       u.onend=()=>{btn.innerHTML=old;speaking=false;}; u.onerror=()=>{btn.innerHTML=old;speaking=false;}; }
     speechSynthesis.speak(u);
@@ -349,9 +447,20 @@ const App = (()=>{
     var prev={}; try{ prev=JSON.parse(localStorage.getItem('erg_user')||'{}'); }catch(_){}
     prev.name=name; prev.school=$('in-school').value.trim(); localStorage.setItem('erg_user',JSON.stringify(prev));
     sessionStorage.setItem('ksnl_user',JSON.stringify({name, school:prev.school}));
-    startTime=Date.now();
+    if(EXAM){   // mô phỏng màn hình đăng nhập trước khi vào thi thật
+      if($('lg-name')) $('lg-name').textContent=name;
+      $('screen-welcome').classList.add('hide');
+      if($('screen-login')) $('screen-login').classList.remove('hide');
+      window.scrollTo(0,0); return;
+    }
+    beginTest();
+  }
+  function backToWelcome(){ if($('screen-login'))$('screen-login').classList.add('hide'); $('screen-welcome').classList.remove('hide'); window.scrollTo(0,0); }
+  function beginTest(){
     $('screen-welcome').classList.add('hide');
+    if($('screen-login')) $('screen-login').classList.add('hide');
     $('screen-test').classList.remove('hide');
+    startTime=Date.now();
     endTime=Date.now()+TEST_MINUTES*60000; $('timer').classList.remove('hide'); tick(); timerInt=setInterval(tick,1000);
     cur=0; renderSteps(); renderSection();
     window.scrollTo(0,0);
@@ -375,24 +484,34 @@ const App = (()=>{
   function renderSteps(){
     $('steps').innerHTML=DATA.sections.map((s,i)=>{
       let c='st'; if(i===cur)c+=' active'; else if(i<cur)c+=' done';
-      return `<div class="${c}">${s.key}. ${s.name}</div>`;
+      return `<div class="${c}">${i+1}. ${s.name}</div>`;
     }).join('');
   }
 
   function renderSection(){
     const s=DATA.sections[cur];
-    let h=`<div class="card"><h2>Phần ${s.key}. ${s.skill}</h2>`;
+    let h=`<div class="card"><h2>Phần ${cur+1}. ${s.skill}${s.extra?' <span class="pill">luyện thêm</span>':''}</h2>`;
+    if(s.extra) h+=`<p class="note" style="background:#f1f5fa;border-color:#d6deea;font-size:14.5px">ℹ️ Phần này <b>không có trong bài thi thật</b> — chỉ để luyện thêm từ vựng/đọc hiểu.</p>`;
     if(s.intro) h+=`<p class="muted">${s.intro}</p>`;
     h+='</div>';
     if(s.type==='write'){ h+=renderWrite(s); }
     else if(s.type==='speak'){ h+=renderSpeak(s); }
+    else if(s.type==='readaloud'){ h+=renderReadAloud(s); }
+    else if(EXAM && s.type==='listen'){
+      if(liSection!==cur){ liSection=cur; liPart=0; liQ=0; liPlayed={}; liFin=false; }
+      h+=renderListenExam(s);
+    }
     else { h+=s.parts.map((p,pi)=>renderPart(s,p,pi)).join(''); }
     host().innerHTML=h;
     refreshVoiceSelectors();
+    var hideNav=(EXAM && s.type==='listen' && !liFin);
     $('btn-prev').style.visibility = cur===0?'hidden':'visible';
+    $('btn-prev').style.display = hideNav?'none':'';
+    $('btn-next').style.display = hideNav?'none':'';
     $('btn-next').textContent = cur===DATA.sections.length-1 ? '✔ Nộp bài & xem kết quả' : 'Phần tiếp theo →';
     renderSteps();
     if(s.type==='write') s.tasks.forEach(t=>{ const ta=$('ta-'+t.id); if(ta){ta.value=writing[t.id]||''; updateWC(t.id,t.min); ta.oninput=()=>{writing[t.id]=ta.value;updateWC(t.id,t.min);};} });
+    if(EXAM && s.type==='listen') liAfterRender(s);
     window.scrollTo(0,0);
   }
 
@@ -409,20 +528,94 @@ const App = (()=>{
         </div>`;
     }
     if(p.passage) h+=`<div class="passage">${p.passage}</div>`;
-    p.questions.forEach(qq=>{
-      h+='<div class="q">';
-      if(qq.context) h+=`<div class="notice">${qq.context}</div>`;
-      h+=`<div class="qt">${qq.q} <span class="flag" id="flag-${qq.id}" onclick="App.toggleFlag(${qq.id})" title="Đánh dấu xem lại">⚑</span></div>`;
-      qq.options.forEach((o,i)=>{
-        const L='ABCD'[i]; const sel=answers[qq.id]===i?' sel':'';
-        h+=`<label class="opt${sel}" id="opt-${qq.id}-${i}">
-          <input type="radio" name="q${qq.id}" ${answers[qq.id]===i?'checked':''} onclick="App.pick(${qq.id},${i})">
-          <b>${L}.</b> ${o}</label>`;
-      });
-      h+='</div>';
-    });
+    p.questions.forEach(qq=>{ h+=qHTML(qq); });
     h+='</div>';
     return h;
+  }
+
+  function qHTML(qq){
+    var h='<div class="q">';
+    if(qq.context) h+='<div class="notice">'+qq.context+'</div>';
+    h+='<div class="qt">'+qq.q+' <span class="flag'+(flags[qq.id]?' on':'')+'" id="flag-'+qq.id+'" onclick="App.toggleFlag('+qq.id+')" title="Đánh dấu xem lại">⚑</span></div>';
+    qq.options.forEach(function(o,i){
+      var L='ABCD'[i]; var sel=answers[qq.id]===i?' sel':'';
+      h+='<label class="opt'+sel+'" id="opt-'+qq.id+'-'+i+'"><input type="radio" name="q'+qq.id+'" '+(answers[qq.id]===i?'checked':'')+' onclick="App.pick('+qq.id+','+i+')"><b>'+L+'.</b> '+o+'</label>';
+    });
+    h+='</div>'; return h;
+  }
+
+  /* ====== ĐỌC THÀNH TIẾNG (read aloud + bíp + thu âm) ====== */
+  function renderReadAloud(s){
+    return s.tasks.map(function(t){
+      return '<div class="card"><h3>'+t.title+'</h3>'+
+        '<p class="muted">Bấm <b>▶ Bắt đầu</b>, chờ <b>tiếng “bíp”</b> rồi đọc to đoạn dưới đây vào micro. Đọc rõ ràng, không cần vội.</p>'+
+        '<div class="passage" style="font-size:19px;line-height:1.85">'+t.text+'</div>'+
+        '<div class="row"><button class="btn" id="ra-start-'+t.id+'" onclick="App.raStart(\''+t.id+'\','+t.secs+')">▶ Bắt đầu (chờ bíp)</button>'+
+        '<span id="ra-state-'+t.id+'" class="pill">Sẵn sàng</span></div>'+
+        '<div id="ra-audio-'+t.id+'"></div></div>';
+    }).join('');
+  }
+  async function raStart(id,secs){
+    const st=$('ra-state-'+id), btn=$('ra-start-'+id); if(!st||!btn) return; btn.disabled=true;
+    let t=3; st.innerHTML='⏳ Chuẩn bị: '+t+'s';
+    await new Promise(function(res){ spTimer=setInterval(function(){ t--; st.innerHTML='⏳ Chuẩn bị: '+t+'s'; if(t<=0){clearInterval(spTimer);res();} },1000); });
+    st.innerHTML='🔔 Bíp! Đọc to ngay…'; await beep();
+    let rec=false, stream=null;
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      mediaRec=new MediaRecorder(stream); chunks=[];
+      mediaRec.ondataavailable=function(e){ chunks.push(e.data); };
+      mediaRec.onstop=function(){ const blob=new Blob(chunks,{type:'audio/webm'}); const url=URL.createObjectURL(blob);
+        $('ra-audio-'+id).innerHTML='<div class="muted" style="margin-top:10px">▶ Nghe lại phần đọc của bạn:</div><audio controls src="'+url+'"></audio>';
+        stream.getTracks().forEach(function(x){x.stop();}); };
+      mediaRec.start(); rec=true;
+    }catch(e){}
+    let s=secs;
+    st.innerHTML=(rec?'<span class="rec-dot"></span> Đang thu âm: ':'🗣 Đang đọc (không thu được micro): ')+s+'s';
+    spTimer=setInterval(function(){ s--; st.innerHTML=(rec?'<span class="rec-dot"></span> Đang thu âm: ':'🗣 Đang đọc: ')+s+'s';
+      if(s<=0){ clearInterval(spTimer); if(rec&&mediaRec&&mediaRec.state!=='inactive')mediaRec.stop(); st.innerHTML='✔ Hoàn thành'; btn.disabled=false; btn.textContent='▶ Làm lại'; btn.onclick=function(){raStart(id,secs);}; } },1000);
+    btn.disabled=false; btn.textContent='⏹ Dừng sớm';
+    btn.onclick=function(){ clearInterval(spTimer); if(rec&&mediaRec&&mediaRec.state!=='inactive')mediaRec.stop(); st.innerHTML='✔ Hoàn thành'; btn.textContent='▶ Làm lại'; btn.onclick=function(){raStart(id,secs);}; };
+  }
+
+  /* ====== NGHE — CHẾ ĐỘ THI THẬT (câu tự trôi / phần sau cho sửa) ====== */
+  function renderListenExam(s){
+    var parts=s.parts, p=parts[liPart], h='<div class="card">';
+    h+='<h3>'+p.title+(parts.length>1?' · Phần nghe '+(liPart+1)+'/'+parts.length:'')+'</h3>';
+    h+='<div class="note" style="background:#fdeaea;border-color:#f0a3a3">🎧 Audio chỉ phát <b>một lần</b>, không nghe lại được.'+(liPart===0?' Mỗi câu <b>tự trôi</b> sau '+QSEC+' giây, không quay lại được.':' Phần này bạn <b>được xem lại và sửa</b> nếu còn giờ.')+'</div>';
+    if(liPart===0){
+      var q=p.questions[liQ];
+      h+='<div class="muted" style="font-weight:800;margin-bottom:6px">Câu '+(liQ+1)+'/'+p.questions.length+' · ⏳ còn <b id="li-count">'+QSEC+'</b>s</div>';
+      h+=qHTML(q);
+      h+='<div class="navbar"><span></span><button class="btn" onclick="App.liNext()">Câu tiếp →</button></div>';
+    } else {
+      p.questions.forEach(function(q){ h+=qHTML(q); });
+      h+='<div class="navbar"><span></span><button class="btn" onclick="App.liNextPart()">'+(liPart<parts.length-1?'Phần nghe tiếp →':'Xong phần Nghe ✔')+'</button></div>';
+    }
+    h+='</div>';
+    return h;
+  }
+  function liAfterRender(s){
+    if(!liPlayed[liPart]){ liPlayed[liPart]=true; var p=s.parts[liPart]; if(p.audio) speak(p.audio); }
+    if(liPart===0) startLiCountdown();
+  }
+  function startLiCountdown(){
+    if(liTimer) clearInterval(liTimer);
+    var left=QSEC; var el=$('li-count'); if(el) el.textContent=left;
+    liTimer=setInterval(function(){ left--; var e=$('li-count'); if(e)e.textContent=left; if(left<=0){ clearInterval(liTimer); liNext(); } },1000);
+  }
+  function liNext(){
+    if(liTimer) clearInterval(liTimer);
+    var s=DATA.sections[cur], p0=s.parts[0];
+    if(liQ < p0.questions.length-1){ liQ++; renderSection(); }
+    else { if('speechSynthesis' in window) speechSynthesis.cancel(); liPart=1; if(liPart>=s.parts.length){ liFin=true; nextSection(); } else renderSection(); }
+  }
+  function liNextPart(){
+    if(liTimer) clearInterval(liTimer);
+    if('speechSynthesis' in window) speechSynthesis.cancel();
+    var s=DATA.sections[cur];
+    if(liPart < s.parts.length-1){ liPart++; renderSection(); }
+    else { liFin=true; nextSection(); }
   }
 
   function renderWrite(s){
@@ -590,7 +783,7 @@ const App = (()=>{
 
   if(ONLY) startPractice();
 
-  return { start, testAudio, nextSection, prevSection, pick, toggleFlag, play, showScript, spStart, finish, setVoice };
+  return { start, beginTest, backToWelcome, testAudio, nextSection, prevSection, pick, toggleFlag, play, showScript, spStart, raStart, liNext, liNextPart, finish, setVoice };
 })();
 </script>
 
