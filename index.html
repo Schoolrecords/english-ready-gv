@@ -279,6 +279,49 @@
   }
   @media (max-width:380px){ .skills{grid-template-columns:1fr} }
 
+
+  /* ===== THU GỌN MẬT ĐỘ (vừa 1 màn hình) ===== */
+  .content{padding:16px 28px 18px}
+  .head-row{margin-bottom:12px}
+  .greet{font-size:23px}
+  .greet-sub{font-size:13px}
+  .infobar{padding:11px 18px;margin-bottom:10px;font-size:13.5px}
+  .infobar .i{width:30px;height:30px}
+  .infobar .i svg{width:16px;height:16px}
+  .skills{gap:14px;margin-bottom:14px}
+  .skill{padding:14px 16px 13px}
+  .skill .head{margin-bottom:10px}
+  .skill .badge{width:40px;height:40px;border-radius:12px}
+  .skill .badge svg{width:21px;height:21px}
+  .skill .cefr{top:14px;right:14px}
+  .skill .pct{font-size:24px;margin-bottom:9px}
+  .skill .track{margin-bottom:9px}
+  .midrow{gap:16px;margin-bottom:14px}
+  .cta{padding:18px 20px;display:flex;flex-direction:column;justify-content:center}
+  .cta h2{font-size:19px}
+  .cta .sub{margin:6px 0 11px}
+  .chip-ai{margin-bottom:14px}
+  .panel{padding:15px 18px}
+  .panel .ttl{margin-bottom:9px}
+  .chk{padding:7px 0}
+  .btn-ghost{margin-top:10px;padding:9px 18px}
+  .botrow{gap:16px}
+  .list-item{padding:8px 0}
+  .ai-item,.doc-item{padding:8px 0}
+  aside{gap:14px}
+  .motiv{min-height:auto;padding:16px 18px}
+  .stat-card{padding:14px 18px}
+  .streak-val{margin:10px 0}
+  .stat-num{font-size:23px;margin-top:6px}
+
+  /* ===== THẺ ĐỒNG HÀNH (kiểu Bút Xanh) ===== */
+  .help-box{margin:auto 6px 16px;background:linear-gradient(160deg,rgba(45,212,191,.16),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:15px 15px 8px;position:relative;overflow:hidden}
+  .help-box h4{font-size:13.5px;font-weight:800;margin-bottom:11px;color:#fff;line-height:1.3}
+  .help-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:0}
+  .help-list li{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;color:#dff3ef}
+  .help-list li svg{width:18px;height:18px;flex:none;color:#0a3733;background:#2dd4bf;border-radius:6px;padding:3px;box-shadow:0 2px 6px rgba(45,212,191,.4)}
+  .help-mascot{display:flex;justify-content:flex-end;margin:-6px -4px -4px 0}
+  .help-mascot svg{width:96px;height:auto;display:block}
 </style>
 </head>
 <body>
@@ -353,9 +396,27 @@
       </svg>
     </div>
     <div class="help-box">
-      <h4>Bạn không đơn độc!</h4>
-      <p>Chúng tôi luôn đồng hành cùng thầy/cô trên hành trình nâng cao năng lực Tiếng Anh.</p>
-      <div class="heart">❤</div>
+      <h4>English Ready luôn bên thầy/cô</h4>
+      <ul class="help-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Luyện đủ 4 kỹ năng</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Sát đề khảo sát thật</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>AI hỗ trợ &amp; phản hồi</li>
+      </ul>
+      <div class="help-mascot"><svg viewBox="0 0 118 104" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="mbody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs>
+        <ellipse cx="58" cy="96" rx="30" ry="5" fill="rgba(0,0,0,.18)"/>
+        <circle cx="92" cy="60" r="7" fill="url(#mbody)"/>
+        <circle cx="24" cy="72" r="6" fill="url(#mbody)"/>
+        <rect x="30" y="42" width="56" height="52" rx="24" fill="url(#mbody)"/>
+        <rect x="39" y="55" width="38" height="34" rx="16" fill="#eafaf7" opacity=".9"/>
+        <circle cx="49" cy="60" r="4.2" fill="#0f3b37"/><circle cx="67" cy="60" r="4.2" fill="#0f3b37"/>
+        <circle cx="50.6" cy="58.4" r="1.4" fill="#fff"/><circle cx="68.6" cy="58.4" r="1.4" fill="#fff"/>
+        <circle cx="42" cy="66" r="3.2" fill="#fb7185" opacity=".5"/><circle cx="74" cy="66" r="3.2" fill="#fb7185" opacity=".5"/>
+        <path d="M50 69 q8 7 16 0" fill="none" stroke="#0f3b37" stroke-width="2.6" stroke-linecap="round"/>
+        <polygon points="58,24 84,33 58,42 32,33" fill="#0f5048"/>
+        <rect x="47" y="33" width="22" height="7" rx="2" fill="#0a3733"/>
+        <line x1="84" y1="33" x2="86" y2="48" stroke="#fbbf24" stroke-width="2.4"/><circle cx="86" cy="50" r="3" fill="#fbbf24"/>
+      </svg></div>
     </div>
   </div>
 
