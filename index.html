@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Ready GV — Luyện tập khảo sát năng lực Tiếng Anh</title>
+<meta name="description" content="Luyện tập khảo sát năng lực Tiếng Anh dành cho giáo viên Tiểu học, THCS, THPT. Nghe • Nói • Đọc • Viết — có AI hỗ trợ luyện tập và phản hồi.">
+<!-- Social preview (Facebook / Messenger / Zalo) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="English Ready GV">
+<meta property="og:title" content="English Ready GV — Luyện tập khảo sát năng lực Tiếng Anh">
+<meta property="og:description" content="Luyện tập khảo sát năng lực Tiếng Anh dành cho giáo viên. Nghe • Nói • Đọc • Viết — có AI hỗ trợ.">
+<meta property="og:image" content="https://schoolrecords.github.io/english-ready-gv/assets/images/english-ready-gv-social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="English Ready GV — Luyện tập khảo sát năng lực Tiếng Anh">
+<meta property="og:url" content="https://schoolrecords.github.io/english-ready-gv/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="English Ready GV — Luyện tập khảo sát năng lực Tiếng Anh">
+<meta name="twitter:description" content="Luyện tập khảo sát năng lực Tiếng Anh dành cho giáo viên. Nghe • Nói • Đọc • Viết — có AI hỗ trợ.">
+<meta name="twitter:image" content="https://schoolrecords.github.io/english-ready-gv/assets/images/english-ready-gv-social-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap&subset=vietnamese,latin" rel="stylesheet">
@@ -308,7 +324,6 @@
     <div class="top-right">
       <div class="ic-btn" title="Thông báo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-        <span class="badge">3</span>
       </div>
       <div class="ic-btn" title="Trợ giúp">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 3.6-1.7c1.4.8 1.4 2.6 0 3.4-.8.5-1.1 1-1.1 1.8M12 17h.01"/></svg>
@@ -374,35 +389,40 @@
           <span class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
         </div>
 
+        <div class="infobar" id="exam-countdown" style="background:var(--amber-soft);border-color:#f3dca6;color:#8a5a08;display:none">
+          <span class="i" style="background:var(--amber)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>
+          <span id="exam-countdown-text">Đợt khảo sát chính thức dự kiến <b>10/7 – 20/7/2026</b>.</span>
+        </div>
+
         <!-- SKILLS -->
         <div class="skills">
           <div class="card skill s-nghe">
-            <span class="cefr">B1</span>
+            <span class="cefr">—</span>
             <div class="head"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="7" rx="1.5"/><rect x="17" y="13" width="4" height="7" rx="1.5"/></svg></span><span class="name">Nghe</span></div>
-            <div class="pct num">72%</div>
-            <div class="track"><i style="width:72%"></i></div>
-            <div class="foot"><span class="pts num">72/100 điểm</span><span style="color:var(--blue)">Khá tốt</span></div>
+            <div class="pct num">—</div>
+            <div class="track"><i style="width:0%"></i></div>
+            <div class="foot"><span class="pts num">Chưa có dữ liệu</span><span style="color:var(--muted)">Chưa chấm</span></div>
           </div>
           <div class="card skill s-noi">
-            <span class="cefr">A2</span>
+            <span class="cefr">—</span>
             <div class="head"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="name">Nói</span></div>
-            <div class="pct num">58%</div>
-            <div class="track"><i style="width:58%"></i></div>
-            <div class="foot"><span class="pts num">58/100 điểm</span><span style="color:var(--orange)">Trung bình</span></div>
+            <div class="pct num">—</div>
+            <div class="track"><i style="width:0%"></i></div>
+            <div class="foot"><span class="pts num">Chưa có dữ liệu</span><span style="color:var(--muted)">Chưa chấm</span></div>
           </div>
           <div class="card skill s-doc">
-            <span class="cefr">B1</span>
+            <span class="cefr">—</span>
             <div class="head"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-1.5-7 0v12c2-1.5 5-1.5 7 0M12 6c2-1.5 5-1.5 7 0v12c-2-1.5-5-1.5-7 0M12 6v12"/></svg></span><span class="name">Đọc</span></div>
-            <div class="pct num">81%</div>
-            <div class="track"><i style="width:81%"></i></div>
-            <div class="foot"><span class="pts num">81/100 điểm</span><span style="color:var(--purple)">Tốt</span></div>
+            <div class="pct num">—</div>
+            <div class="track"><i style="width:0%"></i></div>
+            <div class="foot"><span class="pts num">Chưa có dữ liệu</span><span style="color:var(--muted)">Chưa chấm</span></div>
           </div>
           <div class="card skill s-viet">
-            <span class="cefr">B2</span>
+            <span class="cefr">—</span>
             <div class="head"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="name">Viết</span></div>
-            <div class="pct num">65%</div>
-            <div class="track"><i style="width:65%"></i></div>
-            <div class="foot"><span class="pts num">65/100 điểm</span><span style="color:var(--orange)">Khá</span></div>
+            <div class="pct num">—</div>
+            <div class="track"><i style="width:0%"></i></div>
+            <div class="foot"><span class="pts num">Chưa có dữ liệu</span><span style="color:var(--muted)">Chưa chấm</span></div>
           </div>
         </div>
 
@@ -432,7 +452,7 @@
             <div>
               <h2>Khảo sát NL Tiếng Anh – 4 kỹ năng</h2>
               <div class="sub">Nghe · Nói · Đọc · Viết</div>
-              <div class="chip-ai"><span class="sq">AI</span> AI hỗ trợ chấm Nói, Viết</div>
+              <div class="chip-ai"><span class="sq">AI</span> Bài thi thật: AI chấm Nói &amp; Viết</div>
               <button class="btn" id="btn-start">Bắt đầu luyện tập <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
             </div>
           </div>
@@ -458,10 +478,10 @@
           </div>
 
           <div class="card panel">
-            <div class="ttl"><span class="pic" style="background:var(--purple-soft);color:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.6 3.6L17 9l-3.4 1.4L12 14l-1.6-3.6L7 9l3.4-1.4z" fill="currentColor" stroke="none"/><path d="M18 14l.8 1.8L21 17l-2.2.8L18 20l-.8-1.8L15 17l2.2-.8z" fill="currentColor" stroke="none"/></svg></span>Phản hồi AI<span class="more">Xem tất cả</span></div>
-            <div class="ai-item"><span class="pic" style="background:var(--blue-soft);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h2M8 7v10M12 4v16M16 8v8M20 11h-2"/></svg></span><div><b>Phát âm</b><p>Phát âm của bạn rõ ràng. Hãy chú ý âm /θ/ và /ð/ (think, this) để tự nhiên hơn.</p></div></div>
-            <div class="ai-item"><span class="pic" style="background:var(--green-soft);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-1.5-7 0v12c2-1.5 5-1.5 7 0M12 6c2-1.5 5-1.5 7 0v12c-2-1.5-5-1.5-7 0M12 6v12"/></svg></span><div><b>Ngữ pháp</b><p>Bạn sử dụng câu phức tốt. Nhớ chia động từ ở thì quá khứ ở dạng bất quy tắc nhé!</p></div></div>
-            <div class="ai-item"><span class="pic" style="background:var(--orange-soft);color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18l3.5-11h2L14 18M6.5 14h6M17 9v9M16 18h3"/></svg></span><div><b>Từ vựng</b><p>Từ vựng phong phú. Thử dùng thêm các cụm từ học thuật trong bài viết.</p></div></div>
+            <div class="ttl"><span class="pic" style="background:var(--purple-soft);color:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.6 3.6L17 9l-3.4 1.4L12 14l-1.6-3.6L7 9l3.4-1.4z" fill="currentColor" stroke="none"/><path d="M18 14l.8 1.8L21 17l-2.2.8L18 20l-.8-1.8L15 17l2.2-.8z" fill="currentColor" stroke="none"/></svg></span>Mẹo cải thiện<span class="more" data-go="phan-hoi-ai.html">Xem tất cả</span></div>
+            <div class="ai-item"><span class="pic" style="background:var(--blue-soft);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h2M8 7v10M12 4v16M16 8v8M20 11h-2"/></svg></span><div><b>Phát âm</b><p>Nói chậm, rõ; chú ý âm cuối và các âm /θ/, /ð/ (think, this). Thu âm rồi nghe lại để tự sửa.</p></div></div>
+            <div class="ai-item"><span class="pic" style="background:var(--green-soft);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-1.5-7 0v12c2-1.5 5-1.5 7 0M12 6c2-1.5 5-1.5 7 0v12c-2-1.5-5-1.5-7 0M12 6v12"/></svg></span><div><b>Ngữ pháp</b><p>Viết câu ngắn, đúng trước rồi mới dài. Chú ý chia thì và động từ bất quy tắc ở quá khứ.</p></div></div>
+            <div class="ai-item"><span class="pic" style="background:var(--orange-soft);color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18l3.5-11h2L14 18M6.5 14h6M17 9v9M16 18h3"/></svg></span><div><b>Từ vựng</b><p>Học từ theo chủ đề lớp học – học sinh – giáo dục; dùng từ nối: first, because, for example…</p></div></div>
           </div>
 
           <div class="card panel">
@@ -489,33 +509,25 @@
 
         <div class="card stat-card">
           <div class="stat-head"><span class="ic ic-fire">🔥</span><span class="lbl">Chuỗi ngày luyện tập</span></div>
-          <div class="streak-val"><span class="fire">🔥</span><span class="n num" data-stat="streak">7</span><span class="u">ngày</span></div>
-          <div class="week">
-            <div class="day"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>T2</div>
-            <div class="day"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>T3</div>
-            <div class="day"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>T4</div>
-            <div class="day"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>T5</div>
-            <div class="day"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>T6</div>
-            <div class="day"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>T7</div>
-            <div class="day off"><span class="dot"></span>CN</div>
-          </div>
+          <div class="streak-val"><span class="fire">🔥</span><span class="n num" data-stat="streak">0</span><span class="u">ngày</span></div>
+          <div class="week" id="week-row"></div>
         </div>
 
         <div class="card stat-card">
           <div class="stat-head"><span class="ic ic-book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-1.5-7 0v12c2-1.5 5-1.5 7 0M12 6c2-1.5 5-1.5 7 0v12c-2-1.5-5-1.5-7 0M12 6v12"/></svg></span><span class="lbl">Tổng bài đã hoàn thành</span></div>
-          <div class="stat-num num"><span data-stat="done">128</span><small>bài</small></div>
+          <div class="stat-num num"><span data-stat="done">0</span><small>bài</small></div>
         </div>
 
         <div class="card stat-card">
-          <div class="stat-head"><span class="ic ic-clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="lbl">Thời gian luyện tập tuần này</span></div>
-          <div class="stat-num num"><span data-stat="h">4</span><small>giờ</small> <span data-stat="m">35</span><small>phút</small></div>
+          <div class="stat-head"><span class="ic ic-clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="lbl">Tổng thời gian luyện tập</span></div>
+          <div class="stat-num num"><span data-stat="h">0</span><small>giờ</small> <span data-stat="m">0</span><small>phút</small></div>
         </div>
 
         <div class="card stat-card goal">
           <div class="stat-head"><span class="ic ic-cup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v3a6 6 0 0 1-12 0z"/><path d="M6 5H4v2a3 3 0 0 0 3 3M18 5h2v2a3 3 0 0 1-3 3M9 16h6M8 20h8M12 13v3"/></svg></span><span class="lbl">Mục tiêu tuần</span></div>
-          <p>Bạn đã hoàn thành <b>80% mục tiêu tuần!</b> Cố gắng thêm một chút nữa nhé!</p>
-          <div class="gtrack"><i style="width:80%"></i></div>
-          <div class="glbl num">80%</div>
+          <p id="goal-text">Mục tiêu: luyện tập <b>5 ngày/tuần</b>. Hãy bắt đầu bài đầu tiên nhé!</p>
+          <div class="gtrack"><i id="goal-bar" style="width:0%"></i></div>
+          <div class="glbl num" id="goal-pct">0%</div>
         </div>
       </aside>
 
@@ -681,6 +693,69 @@
     setSkill('viet', typeof s.viet==='number'?s.viet:null, cap); // Viết: chưa chấm tự động
   }
   updateSkills();
+
+  // ===== SỐ LIỆU THẬT CỘT PHẢI (chuỗi ngày · tổng bài · thời gian · mục tiêu tuần) =====
+  function loadStats(){ try{ return JSON.parse(localStorage.getItem('erg_stats')||'{}'); }catch(_){ return {}; } }
+  function setText(sel,val){ var el=document.querySelector(sel); if(el) el.textContent=val; }
+  function startOfWeek(d){ // tuần bắt đầu Thứ 2
+    var x=new Date(d); var day=(x.getDay()+6)%7; x.setHours(0,0,0,0); x.setDate(x.getDate()-day); return x;
+  }
+  function updateStats(){
+    var s=loadStats();
+    var days = Array.isArray(s.days) ? s.days : [];
+    setText('[data-stat="streak"]', typeof s.streak==='number' ? s.streak : 0);
+    setText('[data-stat="done"]',   typeof s.done==='number'   ? s.done   : 0);
+    setText('[data-stat="h"]', typeof s.hours==='number' ? s.hours : 0);
+    setText('[data-stat="m"]', typeof s.mins==='number'  ? s.mins  : 0);
+
+    // hàng 7 ngày trong tuần — tô đậm ngày thực sự có luyện tập
+    var labels=['T2','T3','T4','T5','T6','T7','CN'];
+    var monday=startOfWeek(new Date());
+    var todayStr=new Date().toDateString();
+    var doneSet={}; days.forEach(function(d){ doneSet[d]=true; });
+    var html='', activeThisWeek=0;
+    for(var i=0;i<7;i++){
+      var dt=new Date(monday); dt.setDate(monday.getDate()+i);
+      var key=dt.toDateString(); var done=!!doneSet[key]; if(done)activeThisWeek++;
+      var isToday=(key===todayStr);
+      var dot = done
+        ? '<span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>'
+        : '<span class="dot"></span>';
+      html+='<div class="day'+(done?'':' off')+'"'+(isToday?' style="font-weight:800;color:var(--blue)"':'')+'>'+dot+labels[i]+'</div>';
+    }
+    var wk=document.getElementById('week-row'); if(wk) wk.innerHTML=html;
+
+    // mục tiêu tuần: luyện đủ 5 ngày
+    var GOAL=5, pct=Math.min(100, Math.round(activeThisWeek/GOAL*100));
+    var bar=document.getElementById('goal-bar'); if(bar) bar.style.width=pct+'%';
+    setText('#goal-pct', pct+'%');
+    var gt=document.getElementById('goal-text');
+    if(gt){
+      if(activeThisWeek===0) gt.innerHTML='Mục tiêu: luyện tập <b>5 ngày/tuần</b>. Hãy bắt đầu bài đầu tiên nhé!';
+      else if(activeThisWeek>=GOAL) gt.innerHTML='Tuyệt vời! Thầy/cô đã đạt <b>mục tiêu '+GOAL+' ngày/tuần</b>. 👏';
+      else gt.innerHTML='Tuần này đã luyện <b>'+activeThisWeek+'/'+GOAL+' ngày</b>. Cố gắng thêm chút nữa nhé!';
+    }
+  }
+  updateStats();
+
+  // ===== ĐẾM NGƯỢC TỚI ĐỢT KHẢO SÁT CHÍNH THỨC (10–20/7/2026) =====
+  (function(){
+    var box=document.getElementById('exam-countdown'), txt=document.getElementById('exam-countdown-text');
+    if(!box||!txt) return;
+    var start=new Date(2026,6,10), end=new Date(2026,6,20,23,59,59); // tháng 6 = July (0-based)
+    var now=new Date(); now.setHours(0,0,0,0);
+    var msDay=86400000, dleft=Math.ceil((start-now)/msDay);
+    if(now>end) return; // đã qua đợt khảo sát thì ẩn
+    if(dleft>0) txt.innerHTML='⏳ Còn <b>'+dleft+' ngày</b> nữa tới đợt khảo sát chính thức (dự kiến <b>10/7 – 20/7/2026</b>). Hãy luyện tập đều mỗi ngày nhé!';
+    else txt.innerHTML='🔔 Đợt khảo sát chính thức đang diễn ra (<b>10/7 – 20/7/2026</b>). Chúc thầy/cô làm bài tốt!';
+    box.style.display='flex';
+  })();
+
+  // điều hướng "Xem tất cả"
+  document.querySelectorAll('.more[data-go]').forEach(function(m){
+    m.style.cursor='pointer';
+    m.addEventListener('click', function(){ window.location.href=m.getAttribute('data-go'); });
+  });
 })();
 </script>
 </body>

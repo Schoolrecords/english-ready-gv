@@ -12,6 +12,66 @@ window.NGAN_HANG = {
 tieuhoc: {
   code:'tieuhoc', label:'Tiểu học', bac:'Bậc 2 (A1→A2)', minutes:35,
   des:[
+  /* ---------------------- ĐỀ 0 — LÀM QUEN (RẤT DỄ) ---------------------- */
+  { id:'de0', name:'Đề Làm quen — Chào hỏi & lớp học (rất dễ)', sections:[
+    { key:'A', name:'Nghe', skill:'LISTENING (NGHE)', type:'listen',
+      intro:'Bấm <b>▶ Phát audio</b> để nghe. Đề này rất dễ, hãy nghe và chọn đáp án.',
+      parts:[
+        { title:'Part 1 — Greetings (Câu 1–4)', desc:'Listen to four short sentences.',
+          audio:"Part one. Number one. Hello. My name is Lan. Number two. Good morning, teacher. Number three. Goodbye. See you tomorrow. Number four. Thank you very much.",
+          questions:[
+            {id:1,q:'1. What is the girl’s name?',options:['Lan','Mai','Nam','Hoa'],ans:0},
+            {id:2,q:'2. What do you say in the morning?',options:['Good night','Good morning','Goodbye','Sorry'],ans:1},
+            {id:3,q:'3. What do we say when we leave?',options:['Hello','Goodbye','Please','Yes'],ans:1},
+            {id:4,q:'4. What is the polite word?',options:['Thank you','Be quiet','Stop','Sit'],ans:0},
+          ]},
+        { title:'Part 2 — Numbers (Câu 5–7)', desc:'Listen and count.',
+          audio:"Part two. Listen. I have one cat. I have two dogs. I have three pens.",
+          questions:[
+            {id:5,q:'5. How many cats?',options:['One','Two','Three','Four'],ans:0},
+            {id:6,q:'6. How many dogs?',options:['One','Two','Three','Four'],ans:1},
+            {id:7,q:'7. How many pens?',options:['One','Two','Three','Four'],ans:2},
+          ]},
+        { title:'Part 3 — A feeling (Câu 8)', desc:'Listen and choose the feeling.',
+          audio:"Part three. I have a new book. I am happy.",
+          questions:[ {id:8,q:'8. How does the speaker feel?',options:['Happy','Sad','Angry','Tired'],ans:0} ]},
+      ]},
+    { key:'B', name:'Đọc', skill:'READING (ĐỌC)', type:'read', intro:'Đọc và chọn đáp án đúng.',
+      parts:[
+        { title:'Part 1 — Signs (Câu 9–11)', desc:'Đọc biển báo và chọn nghĩa đúng.',
+          questions:[
+            {id:9,context:'STOP',q:'9. Biển báo này nghĩa là gì?',options:['Dừng lại','Đi tiếp','Mở cửa','Ăn uống'],ans:0},
+            {id:10,context:'OPEN',q:'10. Biển báo này nghĩa là gì?',options:['Mở (cửa)','Đóng (cửa)','Chạy','Ngủ'],ans:0},
+            {id:11,context:'SCHOOL',q:'11. Biển báo này chỉ nơi nào?',options:['Trường học','Bệnh viện','Chợ','Nhà'],ans:0},
+          ]},
+        { title:'Part 2 — About a teacher (Câu 12–14)', desc:'Read and choose the correct answer.',
+          passage:"Hello! I am Mai. I am a teacher. I have a red bag. I like tea.",
+          questions:[
+            {id:12,q:'12. Who is Mai?',options:['A teacher','A doctor','A pupil','A driver'],ans:0},
+            {id:13,q:'13. What colour is her bag?',options:['Red','Blue','Green','Black'],ans:0},
+            {id:14,q:'14. What does she like?',options:['Tea','Coffee','Milk','Water'],ans:0},
+          ]},
+      ]},
+    { key:'C', name:'Use of English', skill:'USE OF ENGLISH', type:'read', intro:'Choose the best answer (A, B, C or D). Rất dễ.',
+      parts:[ { title:'Use of English (Câu 15–20)', desc:'', questions:[
+            {id:15,q:'15. Hello, ____ name is Nam.',options:['my','I','you','he'],ans:0},
+            {id:16,q:'16. I ____ a teacher.',options:['am','is','are','be'],ans:0},
+            {id:17,q:'17. This ____ a book.',options:['is','am','are','be'],ans:0},
+            {id:18,q:'18. I have two ____ .',options:['pen','pens','a pen','penss'],ans:1},
+            {id:19,q:'19. She is ____ girl.',options:['a','an','the','some'],ans:0},
+            {id:20,q:'20. ____ you like tea?',options:['Do','Does','Is','Are'],ans:0},
+      ]} ]},
+    { key:'D', name:'Viết', skill:'WRITING (VIẾT)', type:'write', intro:'Viết vài câu đơn giản. Đúng là được.',
+      tasks:[ {id:'w1',title:'Viết lời chào (khoảng 20 từ)',min:15,
+         prompt:'Write a short hello message.<br>Say: – your name; – your job; – one thing you like.'} ]},
+    { key:'E', name:'Nói', skill:'SPEAKING (NÓI)', type:'speak', intro:'Bấm <b>▶ Bắt đầu</b> để nói. Nói chậm, rõ.',
+      tasks:[
+        {id:'s1',title:'Part 1 — Chào và giới thiệu',prep:10,speak:40,
+         prompt:'Say hello. Tell: your name, your school, and one thing you like.'},
+        {id:'s2',title:'Part 2 — Đồ vật trong lớp',prep:20,speak:45,
+         prompt:'<b>Talk about your classroom.</b> Say two or three things you can see (for example: a board, a desk, books).'},
+      ]},
+  ]},
   /* ---------------------- ĐỀ 1 ---------------------- */
   { id:'de1', name:'Đề 1 — Lớp học hằng ngày', sections:[
     { key:'A', name:'Nghe', skill:'LISTENING (NGHE)', type:'listen',
@@ -207,6 +267,69 @@ tieuhoc: {
 thcs: {
   code:'thcs', label:'THCS', bac:'Bậc 3 (B1)', minutes:40,
   des:[
+  /* ---------------------- ĐỀ 0 — LÀM QUEN (DỄ) ---------------------- */
+  { id:'de0', name:'Đề Làm quen — Cuộc sống hằng ngày (dễ)', sections:[
+    { key:'A', name:'Nghe', skill:'LISTENING (NGHE)', type:'listen',
+      intro:'Bấm <b>▶ Phát audio</b> để nghe. Đề này dễ hơn để làm quen.',
+      parts:[
+        { title:'Part 1 — A school announcement (Câu 1–3)', desc:'Listen to an announcement.',
+          audio:"Good morning. The school will close early today at three o'clock because of the rain. Please go home safely. The buses will leave at quarter past three.",
+          questions:[
+            {id:1,q:'1. What time does school close today?',options:['Two o’clock','Three o’clock','Four o’clock','Five o’clock'],ans:1},
+            {id:2,q:'2. Why does it close early?',options:['Rain','A holiday','An exam','A party'],ans:0},
+            {id:3,q:'3. When will the buses leave?',options:['3:00','3:15','3:30','4:00'],ans:1},
+          ]},
+        { title:'Part 2 — A short conversation (Câu 4–6)', desc:'Listen to two friends talking.',
+          audio:"Nam: What time do you get up? Lan: At six o'clock. Nam: How do you go to school? Lan: By bike. Nam: Do you have lunch at school? Lan: Yes, I do.",
+          questions:[
+            {id:4,q:'4. When does Lan get up?',options:['Five','Six','Seven','Eight'],ans:1},
+            {id:5,q:'5. How does she go to school?',options:['By bus','By bike','By car','On foot'],ans:1},
+            {id:6,q:'6. Where does she have lunch?',options:['At home','At school','In a cafe','Nowhere'],ans:1},
+          ]},
+        { title:'Part 3 — An opinion (Câu 7–8)', desc:'Listen to a teacher.',
+          audio:"I think doing morning exercise is good. It makes me feel fresh and ready to teach.",
+          questions:[
+            {id:7,q:'7. What does the speaker think is good?',options:['Morning exercise','Sleeping late','Drinking coffee','Skipping breakfast'],ans:0},
+            {id:8,q:'8. How does it make her feel?',options:['Tired','Fresh and ready','Bored','Sad'],ans:1},
+          ]},
+      ]},
+    { key:'B', name:'Đọc', skill:'READING (ĐỌC)', type:'read', intro:'Đọc và chọn đáp án đúng.',
+      parts:[
+        { title:'Part 1 — A notice (Câu 9–11)', desc:'Read the notice and answer.',
+          passage:"NOTICE: The canteen will sell fruit and water this week. Please bring a small bag. Opening time: 9 a.m. to 1 p.m.",
+          questions:[
+            {id:9,q:'9. What will the canteen sell?',options:['Fruit and water','Books','Clothes','Toys'],ans:0},
+            {id:10,q:'10. What should you bring?',options:['A small bag','A chair','A laptop','Nothing'],ans:0},
+            {id:11,q:'11. What time does it open?',options:['8 a.m.','9 a.m.','10 a.m.','1 p.m.'],ans:1},
+          ]},
+        { title:'Part 2 — Staying healthy (Câu 12–14)', desc:'Read the article and answer.',
+          passage:"Walking is a simple way to stay healthy. Doctors say that thirty minutes of walking a day is good for the heart. It is free and easy for most people.",
+          questions:[
+            {id:12,q:'12. What is a simple way to stay healthy?',options:['Walking','Taking pills','Eating less','Sleeping more'],ans:0},
+            {id:13,q:'13. How long should you walk a day?',options:['10 minutes','20 minutes','30 minutes','60 minutes'],ans:2},
+            {id:14,q:'14. Why is walking good?',options:['It is free and easy','It is expensive','It is difficult','It needs a gym'],ans:0},
+          ]},
+      ]},
+    { key:'C', name:'Use of English', skill:'USE OF ENGLISH', type:'read', intro:'Choose the best answer (A, B, C or D).',
+      parts:[ { title:'Use of English (Câu 15–20)', desc:'', questions:[
+            {id:15,q:'15. She ____ to school every day.',options:['go','goes','going','gone'],ans:1},
+            {id:16,q:'16. I have lived here ____ 2015.',options:['since','for','in','at'],ans:0},
+            {id:17,q:'17. This box is ____ than that one.',options:['heavy','heavier','heaviest','more heavy'],ans:1},
+            {id:18,q:'18. If it rains, we ____ at home.',options:['stay','will stay','stayed','staying'],ans:1},
+            {id:19,q:'19. English ____ in many countries.',options:['speak','speaks','is spoken','spoken'],ans:2},
+            {id:20,q:'20. I enjoy ____ books.',options:['read','reading','to read','reads'],ans:1},
+      ]} ]},
+    { key:'D', name:'Viết', skill:'WRITING (VIẾT)', type:'write', intro:'Viết một email ngắn bằng tiếng Anh.',
+      tasks:[ {id:'w1',title:'Viết email (khoảng 50 từ)',min:40,
+         prompt:'Write a short email to a friend about your daily routine.<br>Include: – when you get up; – how you go to work; – one thing you do after work.'} ]},
+    { key:'E', name:'Nói', skill:'SPEAKING (NÓI)', type:'speak', intro:'Bấm <b>▶ Bắt đầu</b> để nói. Trả lời thành câu.',
+      tasks:[
+        {id:'s1',title:'Part 1 — Một ngày của bạn',prep:15,speak:50,
+         prompt:'Talk about your daily routine: what you do in the morning, afternoon and evening.'},
+        {id:'s2',title:'Part 2 — Sở thích',prep:30,speak:60,
+         prompt:'<b>Talk about a hobby you enjoy.</b> Say: – what it is; – when you do it; – why you like it.'},
+      ]},
+  ]},
   /* ---------------------- ĐỀ 1 ---------------------- */
   { id:'de1', name:'Đề 1 — Trường học & hoạt động', sections:[
     { key:'A', name:'Nghe', skill:'LISTENING (NGHE)', type:'listen',
@@ -403,6 +526,61 @@ thcs: {
 thpt: {
   code:'thpt', label:'THPT', bac:'Bậc 4 (B2)', minutes:45,
   des:[
+  /* ---------------------- ĐỀ 0 — LÀM QUEN (DỄ) ---------------------- */
+  { id:'de0', name:'Đề Làm quen — Thói quen học tập & công việc (dễ)', sections:[
+    { key:'A', name:'Nghe', skill:'LISTENING (NGHE)', type:'listen',
+      intro:'Bấm <b>▶ Phát audio</b> để nghe. Đề này dễ hơn để làm quen.',
+      parts:[
+        { title:'Part 1 — A short talk (Câu 1–3)', desc:'Listen to part of a talk on study habits.',
+          audio:"Good study habits make a big difference. Experts say that studying in short, regular sessions works better than studying for many hours at once. Taking short breaks also helps the brain remember more.",
+          questions:[
+            {id:1,q:'1. What works better, according to the experts?',options:['Short, regular sessions','One long session','No studying','Studying all night'],ans:0},
+            {id:2,q:'2. What else helps memory?',options:['Short breaks','Skipping sleep','Loud music','Eating sweets'],ans:0},
+            {id:3,q:'3. Who gives this advice?',options:['Experts','Students','Parents','Drivers'],ans:0},
+          ]},
+        { title:'Part 2 — A discussion (Câu 4–6)', desc:'Listen to two colleagues talking about homework.',
+          audio:"Hoa: Do you think homework is useful? Minh: Yes, but only if it is meaningful, not just busy work. Hoa: I agree. Too much homework can stress students. Minh: Right, quality matters more than quantity.",
+          questions:[
+            {id:4,q:'4. When is homework useful, according to Minh?',options:['When it is meaningful','When it is long','When it is easy','Never'],ans:0},
+            {id:5,q:'5. What can too much homework cause?',options:['Stress','Joy','Money','Sleep'],ans:0},
+            {id:6,q:'6. What matters more?',options:['Quantity','Quality','Speed','Colour'],ans:1},
+          ]},
+        { title:'Part 3 — An opinion (Câu 7–8)', desc:'Listen to a teacher.',
+          audio:"In my view, learning a second language opens many doors. It improves job chances and helps people understand other cultures.",
+          questions:[
+            {id:7,q:'7. What does a second language improve?',options:['Job chances','Height','Eyesight','Cooking'],ans:0},
+            {id:8,q:'8. What else does it help with?',options:['Understanding other cultures','Driving','Painting','Running'],ans:0},
+          ]},
+      ]},
+    { key:'B', name:'Đọc', skill:'READING (ĐỌC)', type:'read', intro:'Đọc đoạn văn và chọn đáp án đúng nhất.',
+      parts:[ { title:'The benefits of reading (Câu 9–12)', desc:'Read the passage and answer.',
+          passage:"Reading regularly has many benefits for adults, not just children. It can reduce stress, improve focus, and widen vocabulary. Some studies suggest that just six minutes of reading can relax the mind. For busy teachers, reading a few pages each night can be a simple but powerful habit.",
+          questions:[
+            {id:9,q:'9. Who benefits from reading?',options:['Only children','Adults too','Only students','No one'],ans:1},
+            {id:10,q:'10. What can reading reduce?',options:['Stress','Height','Weight','Speed'],ans:0},
+            {id:11,q:'11. How many minutes can relax the mind?',options:['Three','Six','Ten','Twenty'],ans:1},
+            {id:12,q:'12. What is suggested for busy teachers?',options:['Reading a few pages each night','Reading all day','Never reading','Reading only at work'],ans:0},
+      ]} ]},
+    { key:'C', name:'Use of English', skill:'USE OF ENGLISH', type:'read', intro:'Choose the best answer (A, B, C or D).',
+      parts:[ { title:'Use of English (Câu 13–18)', desc:'', questions:[
+            {id:13,q:'13. I look forward to ____ you soon.',options:['see','seeing','saw','seen'],ans:1},
+            {id:14,q:'14. If I ____ more time, I would travel.',options:['have','had','has','having'],ans:1},
+            {id:15,q:'15. The lesson ____ by the teacher right now.',options:['is explaining','is being explained','explains','explained'],ans:1},
+            {id:16,q:'16. She suggested ____ a short break.',options:['take','taking','to take','took'],ans:1},
+            {id:17,q:'17. Neither the students ____ the teacher was late.',options:['or','nor','and','but'],ans:1},
+            {id:18,q:'18. Despite ____ tired, he kept working.',options:['be','being','was','is'],ans:1},
+      ]} ]},
+    { key:'D', name:'Viết', skill:'WRITING (VIẾT)', type:'write', intro:'Viết một đoạn văn ngắn, có quan điểm rõ ràng.',
+      tasks:[ {id:'w1',title:'Viết đoạn văn (khoảng 90–110 từ)',min:70,
+         prompt:'Some people think students learn better with regular short tests than with one big exam.<br><b>To what extent do you agree?</b> Give your opinion and reasons.'} ]},
+    { key:'E', name:'Nói', skill:'SPEAKING (NÓI)', type:'speak', intro:'Bấm <b>▶ Bắt đầu</b> để nói. Trình bày mạch lạc.',
+      tasks:[
+        {id:'s1',title:'Part 1 — Một thói quen tốt',prep:15,speak:55,
+         prompt:'Introduce yourself and describe one good habit that helps you in your work.'},
+        {id:'s2',title:'Part 2 — Nêu và bảo vệ quan điểm',prep:40,speak:80,
+         prompt:'<b>Express and justify your opinion:</b> "Is it better to learn from books or from real experience?" Give at least two reasons.'},
+      ]},
+  ]},
   /* ---------------------- ĐỀ 1 ---------------------- */
   { id:'de1', name:'Đề 1 — Dạy học & đánh giá', sections:[
     { key:'A', name:'Nghe', skill:'LISTENING (NGHE)', type:'listen', intro:'Bấm <b>▶ Phát audio</b> để nghe. Nội dung học thuật, tốc độ tự nhiên.',
