@@ -102,6 +102,21 @@
     .passage,.opt,.notice,input,textarea{font-size:16px}
     .opt input{transform:scale(1.4)}
   }
+
+  /* ===== CỬA SỔ XÁC NHẬN (thay confirm mặc định) ===== */
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,28,52,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:grid;place-items:center;z-index:400;padding:20px}
+  .modal-overlay.hide{display:none}
+  .modal{background:#fff;border-radius:22px;max-width:440px;width:100%;padding:32px 30px 24px;box-shadow:0 28px 70px rgba(15,28,52,.34);text-align:center;animation:mpop .22s cubic-bezier(.2,.8,.2,1)}
+  @keyframes mpop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+  .modal-icon{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));display:grid;place-items:center;margin:0 auto 18px;box-shadow:0 14px 28px rgba(37,99,235,.36)}
+  .modal-icon svg{width:36px;height:36px;color:#fff}
+  .modal-title{font-size:24px;font-weight:800;color:#22324a;margin:0 0 10px}
+  .modal-msg{font-size:18px;color:#41505f;font-weight:600;line-height:1.55;margin:0 0 8px}
+  .modal-msg b{color:var(--blue)}
+  .modal-note{font-size:14.5px;color:#7a8694;font-weight:600;margin:0 0 24px;display:flex;align-items:center;justify-content:center;gap:7px}
+  .modal-note svg{width:16px;height:16px;flex:none}
+  .modal-actions{display:flex;gap:12px}
+  .modal-actions .btn{flex:1;justify-content:center;padding:14px 18px}
 </style>
 </head>
 <body>
@@ -465,9 +480,22 @@ const App = (()=>{
     btn.onclick=()=>{ clearInterval(spTimer); if(rec&&mediaRec&&mediaRec.state!=='inactive')mediaRec.stop(); stateEl.innerHTML='✔ Hoàn thành'; btn.textContent='▶ Làm lại'; btn.onclick=()=>spStart(id,prep,speakT); };
   }
 
+  function askSubmit(onYes){
+    var ov=document.getElementById('confirm-modal');
+    var ok=document.getElementById('confirm-ok'), cancel=document.getElementById('confirm-cancel');
+    if(!ov||!ok||!cancel){ if(confirm('Nộp bài và xem kết quả?')) onYes(); return; }
+    ov.classList.remove('hide');
+    function close(){ ov.classList.add('hide'); ok.onclick=null; cancel.onclick=null; ov.onclick=null; document.removeEventListener('keydown',onKey); }
+    function onKey(e){ if(e.key==='Escape') close(); else if(e.key==='Enter'){ close(); onYes(); } }
+    ok.onclick=function(){ close(); onYes(); };
+    cancel.onclick=close;
+    ov.onclick=function(e){ if(e.target===ov) close(); };
+    document.addEventListener('keydown',onKey);
+    ok.focus();
+  }
   function nextSection(){
     if(speaking)speechSynthesis.cancel();
-    if(cur===DATA.sections.length-1){ if(confirm('Bạn chắc chắn muốn NỘP BÀI và xem kết quả?')) finish(); return; }
+    if(cur===DATA.sections.length-1){ askSubmit(finish); return; }
     cur++; renderSection();
   }
   function prevSection(){ if(speaking)speechSynthesis.cancel(); if(cur>0){cur--;renderSection();} }
@@ -565,5 +593,21 @@ const App = (()=>{
   return { start, testAudio, nextSection, prevSection, pick, toggleFlag, play, showScript, spStart, finish, setVoice };
 })();
 </script>
+
+<!-- ===== CỬA SỔ XÁC NHẬN NỘP BÀI ===== -->
+<div class="modal-overlay hide" id="confirm-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </div>
+    <h3 class="modal-title" id="confirm-title">Nộp bài khảo sát?</h3>
+    <p class="modal-msg">Hệ thống xin hỏi thầy/cô có muốn <b>NỘP BÀI</b> và xem kết quả?</p>
+    <p class="modal-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg> Sau khi nộp, bạn sẽ không chỉnh sửa được câu trả lời nữa.</p>
+    <div class="modal-actions">
+      <button class="btn ghost" id="confirm-cancel" type="button">← Tiếp tục làm bài</button>
+      <button class="btn" id="confirm-ok" type="button">Nộp bài &amp; xem kết quả</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
